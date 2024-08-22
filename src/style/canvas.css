@@ -1,0 +1,9 @@
+.canvas-container {
+    width: 100%; /* or specify a fixed width, e.g., 800px */
+    height: 1500px; /* or any height you desire */
+    position: relative;
+  }
+  .font-jersey {
+    font-family: "Jersey 10", sans-serif;
+  }
+  
