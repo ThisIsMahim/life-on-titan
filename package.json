@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.111.2",
+    "@react-three/fiber": "^8.17.5",
+    "@types/three": "^0.167.2",
     "gsap": "^3.12.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
