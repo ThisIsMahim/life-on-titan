@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Water } from "three/examples/jsm/objects/Water";
 import { TextureLoader } from "three";
 import gsap from "gsap";
 import RippleButton from "./Shared/RippleButton";
-import { useNavigate } from "react-router-dom";
+
 const Page1 = () => {
   const mountRef = useRef(null);
   const [factIndex, setFactIndex] = useState(0);
@@ -18,6 +17,8 @@ const Page1 = () => {
   ];
 
   useEffect(() => {
+    if (!mountRef.current) return; // Guard clause to ensure mountRef.current is valid
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -80,9 +81,10 @@ const Page1 = () => {
       "src/assets/texture/robot-roughness.jpg"
     );
     const metalnessMap = textureLoader.load(
-      "src/assets/texture/robot-metal/jpg"
+      "src/assets/texture/robot-metal.jpg"
     );
     const aoMap = textureLoader.load("src/assets/texture/robot-ao.jpg");
+
     // Add a Floating sphere to the scene
     const geometry = new THREE.CapsuleGeometry(25, 60, 10, 10);
 
@@ -105,8 +107,8 @@ const Page1 = () => {
     const capsule = new THREE.Mesh(geometry, material);
     capsule.position.set(-190, 50, 0);
     scene.add(capsule);
-    // make the capsule float in air(steadily going up and down) using gsap animation
-    gsap.fromTo(
+    // Make the capsule float in air (steadily going up and down) using GSAP animation
+    gsap.fromTo(  
       capsule.position,
       { y: 50, delay: 2.1 },
       { y: 55, duration: 2, yoyo: true, repeat: -1, ease: "power2.inOut" }
@@ -117,9 +119,9 @@ const Page1 = () => {
       { x: -350 },
       { x: -170, duration: 2, ease: "power2.inOut" }
     );
+
     // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    // Dimmed ambient light to emphasize reflections
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -144,8 +146,10 @@ const Page1 = () => {
     animate();
 
     return () => {
-      mountRef.current.removeChild(renderer.domElement);
-      scene.clear();
+      if (mountRef.current) {
+        mountRef.current.removeChild(renderer.domElement);
+        scene.clear();
+      }
     };
   }, []);
 
@@ -177,21 +181,21 @@ const Page1 = () => {
     // Speak the initial fact
     speakFact(facts[factIndex]);
   }, [factIndex]);
-  const navigate= useNavigate();
+
   return (
     <div
       ref={mountRef}
       style={{ width: "100vw", height: "100vh", position: "relative" }}
       onClick={handleFactClick}
     >
-      <div className="absolute top-1/2 left-1/2 text-white font-lato text-3xl  ">{facts[factIndex]}</div>
+      <div className="absolute top-1/2 left-1/2 text-white font-lato text-3xl  ">
+        {facts[factIndex]}
+      </div>
       <div className="fixed w-full bottom-0 flex justify-between px-10">
         <RippleButton navigateTo="/">Previous</RippleButton>
-        <RippleButton navigateTo="./page2">Next</RippleButton>
+        <RippleButton navigateTo="/page2">Next</RippleButton>
       </div>
-    
     </div>
-      
   );
 };
 
