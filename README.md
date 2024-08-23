@@ -6,5 +6,7 @@ cd life-on-titan
 ``
 ``
 npm start
+``
+``
 npm run dev
 ``
