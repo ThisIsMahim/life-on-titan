@@ -3,9 +3,10 @@ import { Suspense, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { Water } from "three/examples/jsm/objects/Water";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import RippleButton from "./Shared/RippleButton";
 import Robot from "./Shared/robot";
+import CameraControl from "./Shared/CameraControl";
+import Light from "./Shared/Light";
 
 const Page1 = () => {
   const [factIndex, setFactIndex] = useState(0);
@@ -53,7 +54,7 @@ const Page1 = () => {
           <Robot  animateIn={animateRobot} animateOut={animateOut} onClick={handleFactClick} />
           <Light />
           <CameraControl/>
-          <OrbitControls />
+          {/* <OrbitControls /> */}
         </Suspense>
       </Canvas>
       <div className="absolute top-1/2 left-1/2 text-white font-lato text-3xl">
@@ -142,37 +143,6 @@ const WaterComponent = () => {
   }, [scene]);
 
   return null;
-};
-
-const CameraControl = () => {
-  const { camera } = useThree();
-  
-  useEffect(() => {
-    // Set the camera position
-    camera.position.set(0, 1, 5); // Example position: x, y, z
-    camera.lookAt(new THREE.Vector3(0, 0, 0)); // Look at the center of the scene
-
-    // Optional: Adjust camera settings if needed
-    camera.fov = 85; // Field of view
-    camera.updateProjectionMatrix(); // Update the projection matrix after changes
-  }, [camera]);
-
-  return null;
-};
-
-// Light component to handle lighting
-const Light = () => {
-  const lightRef = useRef();
-
-  useEffect(() => {
-    if (lightRef.current) {
-      lightRef.current.position.set(50, 100, 50); // Adjust position for better lighting
-      lightRef.current.intensity = 5.5; // Adjust intensity for better lighting
-      lightRef.current.castShadow = true;
-    }
-  }, []);
-
-  return <directionalLight ref={lightRef} />;
 };
 
 export default Page1;

@@ -238,10 +238,6 @@ const Planet = ({ texturePath }) => {
       className="w-full h-screen"
     >
       <canvas ref={canvasRef} />
-      <div id="popUpEl" style={{ display: "none", position: "absolute" }}>
-        <p id="populationEl" style={{ color: "white", fontWeight: "bold" }}></p>
-        <p id="populationValueEl" style={{ color: "white" }}></p>
-      </div>
     </div>
   );
 };
