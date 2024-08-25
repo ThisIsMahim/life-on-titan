@@ -7,37 +7,68 @@ import RippleButton from "./Shared/RippleButton";
 import Robot from "./Shared/robot";
 import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
+// import { OrbitControls } from "@react-three/drei";
 
 const Page1 = () => {
-  const [factIndex, setFactIndex] = useState(0);
-  
+  const [dialogueIndex, setDialogueIndex] = useState(0);
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
-  const handleExit=()=>{
-    setAnimateOut(true);
-  }
-  const facts = [
-    "",
+  const [robotPose, setRobotPose] = useState("pose 3 - hello");
+  const [selectedVoice, setSelectedVoice] = useState(window.speechSynthesis.getVoices()[5]);
+
+  const dialogues = [
+    "Hello there, I am Chiko", // Initial dialogue
     "Welcome to our planet Titan, where 95% of the air is nitrogen and 5% is methane.",
     "Titan is the only moon known to have a dense atmosphere.",
     "Titan's surface is covered with rivers and lakes of liquid methane and ethane.",
   ];
 
-  const speakFact = (fact) => {
+  const poses = [
+    "pose 3 - hello", // Pose for the initial dialogue
+    "pose 1 - presentation",
+    "pose 2 - omfg",
+    "pose 4 - warm welcome",
+  ];
+
+  useEffect(() => {
+    const synth = window.speechSynthesis;
+
+    const setVoice = () => {
+      const voices = synth.getVoices();
+      console.log(voices);
+      if (voices.length > 0) {
+        setSelectedVoice(voices[5]); // Set the desired voice, make sure the index is correct
+        speakDialogue(dialogues[0]); // Speak the initial dialogue after voices are set
+      }
+    };
+
+    if (synth.onvoiceschanged !== undefined) {
+      synth.onvoiceschanged = setVoice; // Attach the event listener for voiceschanged
+    } else {
+      // If onvoiceschanged is not supported, fallback to using the available voices immediately
+      setVoice();
+    }
+
+    return () => {
+      synth.onvoiceschanged = null; // Cleanup the event listener on component unmount
+    };
+  }, [dialogues]);
+
+  const speakDialogue = (dialogue) => {
     const synth = window.speechSynthesis;
     synth.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(fact);
-    utterance.voice = synth.getVoices()[2]; // Choose a voice if needed
+    const utterance = new SpeechSynthesisUtterance(dialogue);
+    utterance.voice = selectedVoice; // Use the stored selected voice
     synth.speak(utterance);
   };
 
-  const handleFactClick = () => {
+  const handleDialogueClick = () => {
     setTimeout(() => {
-      setFactIndex((prevIndex) => {
-        const newIndex = (prevIndex + 1) % facts.length;
+      setDialogueIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % dialogues.length;
+        setRobotPose(poses[newIndex]); // Update the robot pose based on the dialogue index
         if (newIndex !== prevIndex) {
-          speakFact(facts[newIndex]);
+          speakDialogue(dialogues[newIndex]);
           setAnimateRobot(true); // Trigger robot animation
         }
         return newIndex;
@@ -45,25 +76,42 @@ const Page1 = () => {
     }, 500);
   };
 
+  const handleExit = () => {
+    setAnimateOut(true);
+  };
+
   return (
-    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+    <div
+      className="relative"
+      style={{ width: "100vw", height: "100vh", position: "relative" }}
+    >
       <Canvas>
         <Suspense fallback={null}>
           <Background />
           <WaterComponent />
-          <Robot  animateIn={animateRobot} animateOut={animateOut} onClick={handleFactClick} />
+          <Robot
+            animateIn={animateRobot}
+            animateOut={animateOut}
+            pose={robotPose}
+          />
           <Light />
-          <CameraControl/>
-          {/* <OrbitControls /> */}
+          <CameraControl />
         </Suspense>
       </Canvas>
-      <div className="absolute top-1/2 left-1/2 text-white font-lato text-3xl">
-        {facts[factIndex]}
+      {/* Dialogue Box */}
+      <div
+        className="absolute lg:bottom-36 bottom-32 flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer"
+        onClick={handleDialogueClick}
+      >
+        <div className="glass-dialogue-box h-full flex items-center">
+          <h1 className="w-auto text-center">{dialogues[dialogueIndex]}</h1>
+        </div>
       </div>
-
       <div className="fixed w-full bottom-0 flex justify-between px-10">
         <RippleButton navigateTo="/">Previous</RippleButton>
-        <RippleButton navigateTo="/page2" onClick={handleExit}>Next</RippleButton>
+        <RippleButton navigateTo="/page2" onClick={handleExit}>
+          Next
+        </RippleButton>
       </div>
     </div>
   );

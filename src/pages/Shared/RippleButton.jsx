@@ -33,7 +33,7 @@ const RippleButton = ({ children, onClick, navigateTo }) => {
       if (navigateTo) {
         setTimeout(() => {
           navigate(navigateTo); // Ensure navigateTo is an absolute path
-        }, 1000); // Delay navigation until after the ripple effect
+        }, 2000); // Delay navigation until after the ripple effect
       }
     }
   };

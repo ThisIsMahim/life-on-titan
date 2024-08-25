@@ -1,12 +1,13 @@
 import React, { useRef, useEffect } from "react";
-import * as THREE from "three";
-import { useLoader, useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, useAnimations } from "@react-three/drei";
+import { useFrame ,useLoader} from "@react-three/fiber";
 import { gsap } from "gsap";
+import * as THREE from "three";
 
-const Robot = ({ animateIn, animateOut, onClick }) => {
+const Robot = ({ animateIn, animateOut, onClick, pose }) => {
   const group = useRef();
-  const { scene } = useGLTF("src/assets/models/robot.gltf");
+  const { scene, animations } = useGLTF("src/assets/models/robot.gltf");
+  const { actions } = useAnimations(animations, group);
 
   // Load textures
   const baseColorMap = useLoader(THREE.TextureLoader, "src/assets/models/textures/body_baseColor.png");
@@ -36,18 +37,33 @@ const Robot = ({ animateIn, animateOut, onClick }) => {
         // Animate in from the left
         gsap.fromTo(group.current.position, 
           { x: -10 }, // Adjust this value based on your scene's scale
-          { x: 0, duration: 3.5, ease: "power3.out" }
+          { x: 0, duration: 2, ease: "power3.out" }
         );
       }
 
       if (animateOut) {
         // Animate out to the right
-        gsap.to(group.current.position, 
-          { x: 10, duration: .5, ease: "power3.in" }
+        gsap.fromTo(group.current.position, 
+          { x: 0 }, // Adjust this value based on your scene's scale
+          { x: 10, duration: 2, ease: "power3.in" }
         );
       }
     }
   }, [animateIn, animateOut]);
+
+  useEffect(() => {
+    // Play the appropriate pose animation
+    if (actions && pose && actions[pose]) {
+      actions[pose].reset().fadeIn(0.5).play();
+    }
+
+    // Cleanup: fade out the animation when the component unmounts
+    return () => {
+      if (actions && pose && actions[pose]) {
+        actions[pose].fadeOut(0.5);
+      }
+    };
+  }, [actions, pose]);
 
   // Floating animation
   useFrame(() => {
