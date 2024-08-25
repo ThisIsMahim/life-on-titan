@@ -1,0 +1,90 @@
+/* Glassmorphism card style */
+.glassmorphism-card {
+    backdrop-filter: blur(2px);
+    background: #4183da29;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    color: white;
+    width: 300px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for the glow effect */
+  }
+  
+  /* Titan card is taller */
+  .titan-card-container .glassmorphism-card {
+    width: 350px;
+    height: auto;
+  }
+  
+  /* Floating animation */
+  .floating-card {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Float up and down */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Shining border effect */
+  .shining-border {
+    border: 5px solid transparent;
+    border-image: linear-gradient(45deg, #580a0a, #2571a8, #fff);
+    border-image-slice: 1;
+    animation: shine 2s linear infinite;
+  }
+  
+  @keyframes shine {
+    0% {
+      border-image: linear-gradient(45deg, #fff, #000, #fff);
+    }
+    100% {
+      border-image: linear-gradient(45deg, #000, #fff, #000);
+    }
+  }
+  
+  /* Titles and text adjustments */
+  .team-title,
+  .titan-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .team-list li,
+  .titan-description {
+    margin-bottom: 8px;
+  }
+  
+  /* Glowing effects on hover */
+  .team-card-container .glassmorphism-card:hover {
+    box-shadow: 0 0 20px 10px rgba(0, 128, 255, 0.6);
+    scale: 1.05; 
+  }
+  
+  .titan-card-container .glassmorphism-card:hover {
+    box-shadow: 0 0 20px 10px rgba(0, 128, 255, 0.6);
+    scale: 1.05; 
+  }
+  
+  @keyframes shine-title {
+    0% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 1), 0 0 80px rgba(255, 255, 255, 1), 0 0 120px rgba(255, 255, 255, 1), 0 0 160px rgba(255, 255, 255, 1);
+    }
+    50% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.1), 0 0 10px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.3), 0 0 120px rgba(255, 255, 255, 0.3), 0 0 160px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 1), 0 0 80px rgba(255, 255, 255, 1), 0 0 120px rgba(255, 255, 255, 1), 0 0 160px rgba(255, 255, 255, 1);
+    }
+  }
+  
+  .shining-title {
+    animation: shine-title 3.5s infinite ease-in-out;
+  }
+  
