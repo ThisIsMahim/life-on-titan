@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +9,9 @@
   }
 .font-lato{
   font-family:  "Lato", sans-serif;
+}
+.font-vt{
+  font-family: "VT323", monospace;
 }
 
 .glass-dialogue-box {
@@ -30,3 +36,36 @@
   transform: scale(1.1); /* Slight lift on hover */
   transition: all 0.3s ease-in-out;
 }
+
+
+  /* Shining border effect */
+  .shining-border {
+    border: 5px solid transparent;
+    border-image: linear-gradient(45deg, #580a0a, #2571a8, #fff);
+    border-image-slice: 1;
+    animation: shine 2s linear infinite;
+  }
+  
+  @keyframes shine {
+    0% {
+      border-image: linear-gradient(45deg, #fff, #000, #fff);
+    }
+    100% {
+      border-image: linear-gradient(45deg, #000, #fff, #000);
+    }
+  }
+
+  /* Floating animation */
+  .floating-card {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Float up and down */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }

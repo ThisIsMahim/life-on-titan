@@ -23,21 +23,40 @@ const Home = () => {
       // Fade in the music
       gsap.to(audio, { volume: 0.5, duration: 2 });
 
-      const tl = gsap.timeline();
-
-      // Animate the team card from the left side of the screen
-      tl.fromTo(
-        ".team-card-container",
-        { x: "-100%", opacity: 0 }, // Start off-screen to the left
-        { x: "0%", opacity: 1, duration: 1.5, ease: "power2.out" }
+      // Title animation
+      gsap.fromTo(
+        ".shining-title",
+        { opacity: 0, y: -50 },
+        { opacity: 1, y: 0, duration: 2, ease: "power3.out", delay: 0.5 }
       );
 
-      // Animate the Titan card from the right side of the screen
-      tl.fromTo(
-        ".titan-card-container",
-        { x: "100%", opacity: 0 }, // Start off-screen to the right
-        { x: "0%", opacity: 1, duration: 1.5, ease: "power2.out" },
-        "-=1" // Overlap the second animation with the first
+      // Left card entrance animation
+      gsap.fromTo(
+        ".animate-card",
+        { opacity: 0, x: -100 },
+        { opacity: 1, x: 0, duration: 1.5, ease: "power3.out", delay: 1 }
+      );
+
+      // Right card entrance animation
+      gsap.fromTo(
+        ".titan-description",
+        { opacity: 0, x: 100 },
+        { opacity: 1, x: 0, duration: 1.5, ease: "power3.out", delay: 1.5 }
+      );
+
+      // Planet rotation
+      gsap.to(".planet", {
+        duration: 10,
+        rotation: 360,
+        repeat: -1,
+        ease: "linear",
+      });
+
+      // Bottom text animation
+      gsap.fromTo(
+        ".bottom-text",
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1.5, ease: "power3.out", delay: 2 }
       );
 
       return () => {
@@ -84,39 +103,46 @@ const Home = () => {
       <div className="bg-transparent fixed z-10 top-5">
         <h1 className="font-jersey text-white text-6xl shining-title">Life on Titan</h1>
       </div>
-      <div className="fixed z-10 bottom-5">
-        <h2 className="font-lato text-white text-xl ">Click on the planet continue exploring</h2>
-      </div>
+
 
       {/* Planet */}
       <Planet texturePath={"./src/assets/img/titan.jpg"} />
 
-      {/* Team Info Card */}
-      <div className="hidden z-10 shining-border font-lato text-center team-card-container lg:block fixed top-1/2 left-5 transform -translate-y-1/2 cursor-pointer">
-        <div className="glassmorphism-card floating-card">
-          <h2 className="text-3xl team-title font-jersey text-white">ASL-ASTRO VOYAGERS</h2>
-          <ul className="font-lato text-xl team-list">
-            <li>MAHIM</li>
-            <li>SAZID</li>
-            <li>SAFI</li>
-            <li>TASNIA</li>
-            <li>AJOY</li>
-          </ul>
+      {/* team card */}
+      <div class="floating-card text-white left-10 fixed w-1/5 h-[320px] ml-3 z-10  border-2 border-transparent p-3 rounded-br-[40px] rounded-tl-[40px]
+                  hover:border-blue-300 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-green-400 
+                  2xl:w-1/5 2xl:h-[420px]  2xl:p-10 max-sm:hidden"
+      >
+        <div className="animate-card">
+          <h1 class="font-vt text-white text-center text-3xl font-bold 2xl:text-4x">ASTRO VOYAGERS</h1>
+          <div class="mt-3 2xl:mt-6">
+            <p class="mb-2 font-vt  text-3xl 2xl:mb-4 2xl:text-4xl">1.Mahim</p>
+            <p class="mb-2 font-vt text-center  text-3xl 2xl:mb-4 2xl:text-4xl">2.Shazid</p>
+            <p class="mb-2 font-vt text-right text-3xl 2xl:mb-4 2xl:text-4xl">3.Tasnia</p>
+            <p class="mb-2 font-vt text-center text-3xl 2xl:mb-4 2xl:text-4xl">4.Shafi</p>
+            <p class="mb-2 font-vt text-left  text-3xl 2xl:mb-4 2xl:text-4xl">5.Ajoy</p>
+          </div>
+        </div>
+          
+      </div>
+      {/* Titan Card */}
+      <div class="floating-card text-white right-10 fixed w-1/5 h-[320px]  mr-3 z-10  border-2 border-transparent p-4 pl-8 rounded-br-[40px] rounded-tl-[40px]
+                  hover:border-blue-200 hover:scale-105  duration-300 hover:bg-gray-900 hover:text-green-400 
+                  2xl:w-1/5 2xl:h-[420px] 2xl:p-4 2xl:pl-8 max-sm:hidden">
+        <div className="titan-description">          
+          <h2 className="text-3xl font-vt font-bold text-white text-center 2xl:text-4xl">TITAN</h2>
+          <div className="mt-2 font-vt text-xl titan-description flex flex-col gap-1 hover:text-green-400
+                          2xl:mt-4 2xl:gap-4 2xl:text-2xl">
+            <p ><strong>Radius:</strong> 2,574 km</p>
+            <p><strong>Weight:</strong> 1.345 × 10<sup>23</sup> kg</p>
+            <p><strong>Atmosphere:</strong> Nitrogen and Methane</p>
+            <p><strong>Distance from Saturn:</strong> 1,222,000 km </p>
+            <p ><strong>Distance from Sun:</strong> 1.4 billion km </p>
+          </div>
         </div>
       </div>
-
-      {/* Titan Info Card */}
-      <div className="hidden z-10 shining-border font-lato text-center titan-card-container lg:block fixed top-1/2 right-5 transform -translate-y-1/2 cursor-pointer">
-        <div className="glassmorphism-card floating-card">
-          <h2 className="text-3xl titan-title font-jersey text-white">Titan</h2>
-          <p className="font-lato text-lg titan-description">
-            <strong>Radius:</strong> 2,574 km<br />
-            <strong>Weight:</strong> 1.345 × 10<sup>23</sup> kg<br />
-            <strong>Atmosphere:</strong> Nitrogen and Methane<br />
-            <strong>Distance from Saturn:</strong> 1,222,000 km<br />
-            <strong>Distance from Sun:</strong> 1.4 billion km<br />
-          </p>
-        </div>
+      <div className="text-center floating-card fixed z-10 bottom-16 bottom-text">
+        <h2 className="font-vt text-white text-4xl">Click on the planet to explore</h2>
       </div>
     </div>
   );
