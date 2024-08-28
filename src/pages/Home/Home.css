@@ -1,14 +1,17 @@
 /* Glassmorphism card style */
 .glassmorphism-card {
     backdrop-filter: blur(2px);
-    background: #4183da29;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.58);
+    background: transparent;
     color: white;
     width: 300px;
     transition: all 0.3s ease-in-out; /* Smooth transition for the glow effect */
+  }
+  .glassmorphism-card:hover{
+    background: #4183da29;
+    border: 1px solid rgba(255, 255, 255, 0.58);
   }
   
   /* Titan card is taller */

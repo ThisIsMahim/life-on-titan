@@ -39,6 +39,12 @@ const Home = () => {
         { x: "0%", opacity: 1, duration: 1.5, ease: "power2.out" },
         "-=1" // Overlap the second animation with the first
       );
+      tl.fromTo(
+        ".bottom-text",
+        {opacity: 0 }, // Start off-screen to the right
+        {opacity: 1, duration: 1.5, ease: "power2.out" },
+        "-=1" // Overlap the second animation with the first
+      );
 
       return () => {
         // Fade out the music when the component unmounts
@@ -84,32 +90,33 @@ const Home = () => {
       <div className="bg-transparent fixed z-10 top-5">
         <h1 className="font-jersey text-white text-6xl shining-title">Life on Titan</h1>
       </div>
-      <div className="fixed z-10 bottom-5">
-        <h2 className="font-lato text-white text-xl ">Click on the planet continue exploring</h2>
+
+      {/* Show after Interaction */}
+      {hasInteracted && (<> 
+
+      <div className="fixed z-10 bottom-5 bottom-text">
+        <h2 className="font-vt text-white text-3xl ">Click on the planet continue exploring</h2>
       </div>
-
-      {/* Planet */}
-      <Planet texturePath={"./src/assets/img/titan.jpg"} />
-
+      
       {/* Team Info Card */}
       <div className="hidden z-10 shining-border font-lato text-center team-card-container lg:block fixed top-1/2 left-5 transform -translate-y-1/2 cursor-pointer">
         <div className="glassmorphism-card floating-card">
-          <h2 className="text-3xl team-title font-jersey text-white">ASL-ASTRO VOYAGERS</h2>
-          <ul className="font-lato text-xl team-list">
-            <li>MAHIM</li>
-            <li>SAZID</li>
-            <li>SAFI</li>
-            <li>TASNIA</li>
-            <li>AJOY</li>
-          </ul>
+          <h2 className="text-3xl team-title font-vt text-white">ASL-ASTRO VOYAGERS</h2>
+          <div className="mt-3 2xl:mt-6">
+            <p className="mb-2 font-vt text-left  text-3xl 2xl:mb-4 2xl:text-4xl">1.Mahim</p>
+            <p className="mb-2 font-vt text-center  text-3xl 2xl:mb-4 2xl:text-4xl">2.Shazid</p>
+            <p className="mb-2 font-vt text-right text-3xl 2xl:mb-4 2xl:text-4xl">3.Tasnia</p>
+            <p className="mb-2 font-vt text-center text-3xl 2xl:mb-4 2xl:text-4xl">4.Shafi</p>
+            <p className="mb-2 font-vt text-left  text-3xl 2xl:mb-4 2xl:text-4xl">5.Ajoy</p>
+          </div>
         </div>
       </div>
 
       {/* Titan Info Card */}
       <div className="hidden z-10 shining-border font-lato text-center titan-card-container lg:block fixed top-1/2 right-5 transform -translate-y-1/2 cursor-pointer">
         <div className="glassmorphism-card floating-card">
-          <h2 className="text-3xl titan-title font-jersey text-white">Titan</h2>
-          <p className="font-lato text-lg titan-description">
+          <h2 className="text-3xl titan-title font-vt text-white">Titan</h2>
+          <p className="font-vt text-lg titan-description">
             <strong>Radius:</strong> 2,574 km<br />
             <strong>Weight:</strong> 1.345 × 10<sup>23</sup> kg<br />
             <strong>Atmosphere:</strong> Nitrogen and Methane<br />
@@ -118,6 +125,14 @@ const Home = () => {
           </p>
         </div>
       </div>
+      </>
+        
+      )}
+      
+
+      {/* Planet */}
+      <Planet texturePath={"./src/assets/img/titan.jpg"} />
+
     </div>
   );
 };
