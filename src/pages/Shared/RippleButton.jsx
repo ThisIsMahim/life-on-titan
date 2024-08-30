@@ -39,7 +39,7 @@ const RippleButton = ({ children, onClick, navigateTo }) => {
   };
 
   return (
-    <button className="ripple-button w-40" onClick={handleClick}>
+    <button className="ripple-button w-40 rounded-lg" onClick={handleClick}>
       {isRippling && coords.x !== -1 && coords.y !== -1 ? (
         <span
           className="ripple"

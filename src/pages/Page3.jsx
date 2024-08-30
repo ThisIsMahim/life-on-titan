@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-// ATMOSPHERE
+// SURFACE
 import { Suspense, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -11,7 +11,7 @@ import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
 
-const Page2 = () => {
+const Page3 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
@@ -56,7 +56,6 @@ const handleDialogueClick = () => {
       return newIndex;
     });
   }, 500);
-  
 };
 
   const handleExit = () => {
@@ -100,4 +99,4 @@ const handleDialogueClick = () => {
   );
 };
 
-export default Page2;
+export default Page3;

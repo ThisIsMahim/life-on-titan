@@ -8,6 +8,7 @@ import Robot from "./Shared/robot";
 import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
+import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
 
 const Page1 = () => {
@@ -31,13 +32,13 @@ const Page1 = () => {
     "pose 4 - warm welcome",
   ];
 
-//  The speech and Dialougue handling commands
+  //  The speech and Dialougue handling commands
   useEffect(() => {
     if (selectedVoice) {
       speak(dialogues[0]);
     }
   }, [selectedVoice]);
- 
+
   const handleDialogueClick = () => {
     setTimeout(() => {
       setDialogueIndex((prevIndex) => {
@@ -52,11 +53,10 @@ const Page1 = () => {
     }, 500);
   };
 
-// Handle Exit button
+  // Handle Exit button
   const handleExit = () => {
     setAnimateOut(true);
   };
-
 
   return (
     <div
@@ -65,7 +65,7 @@ const Page1 = () => {
     >
       <Canvas>
         <Suspense fallback={null}>
-          <Background />
+          <Background texturePath={"src/assets/img/titan-scenery-3.jpg"} />
           <WaterComponent />
           <Robot
             animateIn={animateRobot}
@@ -85,6 +85,7 @@ const Page1 = () => {
           <h1 className="w-auto text-center">{dialogues[dialogueIndex]}</h1>
         </div>
       </div>
+      {/* Buttons */}
       <div className="fixed w-full bottom-0 flex justify-between px-10">
         <RippleButton navigateTo="/">Previous</RippleButton>
         <RippleButton navigateTo="/page2" onClick={handleExit}>
@@ -93,37 +94,6 @@ const Page1 = () => {
       </div>
     </div>
   );
-};
-
-// Background component for setting the background texture with a dark overlay
-const Background = () => {
-  const { scene } = useThree();
-  const texture = new THREE.TextureLoader().load(
-    "src/assets/img/titan-scenery-3.jpg"
-  );
-
-  useEffect(() => {
-    scene.background = texture;
-
-    // Add dark overlay
-    const darkOverlay = new THREE.Mesh(
-      new THREE.PlaneGeometry(10000, 10000),
-      new THREE.MeshBasicMaterial({
-        color: 0x000000,
-        transparent: true,
-        opacity: 0.5,
-      })
-    );
-    darkOverlay.position.z = -99;
-    scene.add(darkOverlay);
-
-    return () => {
-      scene.background = null;
-      scene.remove(darkOverlay);
-    };
-  }, [scene, texture]);
-
-  return null;
 };
 
 // Water component for the water effect
