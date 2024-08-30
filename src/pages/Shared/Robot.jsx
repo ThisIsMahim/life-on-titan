@@ -1,10 +1,13 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useRef, useEffect } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { useFrame ,useLoader} from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { gsap } from "gsap";
 import * as THREE from "three";
 
-const Robot = ({ animateIn, animateOut, onClick, pose }) => {
+const Robot = ({ animateIn, animateOut, onClick, pose, animateInDirection, animateOutDirection }) => {
   const group = useRef();
   const { scene, animations } = useGLTF("src/assets/models/robot.gltf");
   const { actions } = useAnimations(animations, group);
@@ -32,24 +35,32 @@ const Robot = ({ animateIn, animateOut, onClick, pose }) => {
 
   // Handle animations
   useEffect(() => {
+    const directions = {
+      left: { start: { x: -10 }, end: { x: 0 } },
+      right: { start: { x: 10 }, end: { x: 0 } },
+      up: { start: { y: 10 }, end: { y: 0 } },
+      down: { start: { y: -10 }, end: { y: 0 } }
+    };
+
+    const animate = (direction, from, to) => {
+      gsap.fromTo(group.current.position, 
+        from, 
+        { ...to, duration: 2, ease: "power3.out" }
+      );
+    };
+
     if (group.current) {
       if (animateIn) {
-        // Animate in from the left
-        gsap.fromTo(group.current.position, 
-          { x: -10 }, // Adjust this value based on your scene's scale
-          { x: 0, duration: 2, ease: "power3.out" }
-        );
+        const direction = animateInDirection || "left";
+        animate(direction, directions[direction].start, directions[direction].end);
       }
 
       if (animateOut) {
-        // Animate out to the right
-        gsap.fromTo(group.current.position, 
-          { x: 0 }, // Adjust this value based on your scene's scale
-          { x: 10, duration: 2, ease: "power3.in" }
-        );
+        const direction = animateOutDirection || "right";
+        animate(direction, directions[direction].end, directions[direction].start);
       }
     }
-  }, [animateIn, animateOut]);
+  }, [animateIn, animateOut, animateInDirection, animateOutDirection]);
 
   useEffect(() => {
     // Play the appropriate pose animation

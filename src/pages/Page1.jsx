@@ -7,6 +7,7 @@ import RippleButton from "./Shared/RippleButton";
 import Robot from "./Shared/robot";
 import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
+import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
 // import { OrbitControls } from "@react-three/drei";
 
 const Page1 = () => {
@@ -14,7 +15,7 @@ const Page1 = () => {
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
   const [robotPose, setRobotPose] = useState("pose 3 - hello");
-  const [selectedVoice, setSelectedVoice] = useState(window.speechSynthesis.getVoices()[5]);
+  const { speak, selectedVoice } = useSpeechSynthesis();
 
   const dialogues = [
     "Hello there, I am Chiko", // Initial dialogue
@@ -30,55 +31,32 @@ const Page1 = () => {
     "pose 4 - warm welcome",
   ];
 
+//  The speech and Dialougue handling commands
   useEffect(() => {
-    const synth = window.speechSynthesis;
-
-    const setVoice = () => {
-      const voices = synth.getVoices();
-      console.log(voices);
-      if (voices.length > 0) {
-        setSelectedVoice(voices[5]); // Set the desired voice, make sure the index is correct
-        speakDialogue(dialogues[0]); // Speak the initial dialogue after voices are set
-      }
-    };
-
-    if (synth.onvoiceschanged !== undefined) {
-      synth.onvoiceschanged = setVoice; // Attach the event listener for voiceschanged
-    } else {
-      // If onvoiceschanged is not supported, fallback to using the available voices immediately
-      setVoice();
+    if (selectedVoice) {
+      speak(dialogues[0]);
     }
-
-    return () => {
-      synth.onvoiceschanged = null; // Cleanup the event listener on component unmount
-    };
-  }, [dialogues]);
-
-  const speakDialogue = (dialogue) => {
-    const synth = window.speechSynthesis;
-    synth.cancel();
-    const utterance = new SpeechSynthesisUtterance(dialogue);
-    utterance.voice = selectedVoice; // Use the stored selected voice
-    synth.speak(utterance);
-  };
-
+  }, [selectedVoice]);
+ 
   const handleDialogueClick = () => {
     setTimeout(() => {
       setDialogueIndex((prevIndex) => {
         const newIndex = (prevIndex + 1) % dialogues.length;
-        setRobotPose(poses[newIndex]); // Update the robot pose based on the dialogue index
+        setRobotPose(poses[newIndex]);
         if (newIndex !== prevIndex) {
-          speakDialogue(dialogues[newIndex]);
-          setAnimateRobot(true); // Trigger robot animation
+          speak(dialogues[newIndex]);
+          setAnimateRobot(true);
         }
         return newIndex;
       });
     }, 500);
   };
 
+// Handle Exit button
   const handleExit = () => {
     setAnimateOut(true);
   };
+
 
   return (
     <div

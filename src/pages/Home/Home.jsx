@@ -4,6 +4,7 @@ import Planet from "./Planet";
 import "./Home.css";
 import gsap from "gsap";
 import backgroundMusicFile from "../../assets/sounds/space-bg-1.mp3";
+import AudioControl from "../Shared/AudioControl";
 
 const Home = () => {
   const audioRef = useRef(new Audio(backgroundMusicFile));
@@ -93,8 +94,10 @@ const Home = () => {
 
       {/* Show after Interaction */}
       {hasInteracted && (<> 
+        {/* mute button */}
+        <AudioControl audioRef={audioRef}/>
 
-      <div className="fixed z-10 bottom-5 bottom-text">
+      <div className="fixed z-10 text-center bottom-5 bottom-text">
         <h2 className="font-vt text-white text-3xl ">Click on the planet continue exploring</h2>
       </div>
       

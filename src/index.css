@@ -27,6 +27,7 @@
   font-weight: 700; /* Bold text */
   overflow: hidden; /* Hide overflow for rounded corners */
   box-sizing: border-box;
+  transition: all .3s ease;
 }
 
 /* Additional hover effect to give more depth */
