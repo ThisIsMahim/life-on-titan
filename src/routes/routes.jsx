@@ -34,10 +34,6 @@ const router = createHashRouter([
         path: "page4", 
         element: <Page4 />,
       },
-      {
-        path: "page5", 
-        element: <Page5 />,
-      },
     ],
   },
   {
