@@ -10,12 +10,14 @@ import Light from "./Shared/Light";
 import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
+import Typewriter from 'typewriter-effect';
 
 const Page2 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
   const [robotPose, setRobotPose] = useState("pose 1 - presentation");
+  const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
   const dialogues = [
     "Now, let's talk about Titan's atmosphere.", // Initial dialogue
@@ -27,7 +29,7 @@ const Page2 = () => {
   ];
 
   const poses = [
-     // Pose for the initial dialogue
+    // Pose for the initial dialogue
     "pose 1 - presentation",
     "pose 3 - hello",
     "pose 2 - omfg",
@@ -36,15 +38,18 @@ const Page2 = () => {
     "pose 6 - presentation flipped",
   ];
 
- 
-//  The speech and Dialougue handling commands
-useEffect(() => {
-  if (selectedVoice) {
-    speak(dialogues[0]);
-  }
-}, [selectedVoice]);
 
-const handleDialogueClick = () => {
+  //  The speech and Dialougue handling commands
+  useEffect(() => {
+    if (selectedVoice) {
+      speak(dialogues[0]);
+    }
+  }, [selectedVoice]);
+
+  const handleDialogueClick = () => {
+  // Hide the "Click to continue..." text immediately when clicking
+  setShowContinueText(false);
+
   setTimeout(() => {
     setDialogueIndex((prevIndex) => {
       const newIndex = (prevIndex + 1) % dialogues.length;
@@ -56,8 +61,8 @@ const handleDialogueClick = () => {
       return newIndex;
     });
   }, 500);
-  
 };
+
 
   const handleExit = () => {
     setAnimateOut(true);
@@ -86,8 +91,36 @@ const handleDialogueClick = () => {
         className="absolute lg:bottom-36 bottom-32 flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer"
         onClick={handleDialogueClick}
       >
-        <div className="glass-dialogue-box h-full flex items-center">
-          <h1 className="w-auto text-center">{dialogues[dialogueIndex]}</h1>
+        <div className="glass-dialogue-box h-full flex items-center flex-col">
+          <Typewriter
+             key={dialogueIndex} 
+            onInit={(typewriter) => {
+              typewriter
+                .callFunction(() => {
+                  setShowContinueText(false);
+                })
+                .typeString(dialogues[dialogueIndex])
+                .start()
+                .callFunction(() => {
+                  setShowContinueText(true);
+                })
+                
+            }}   
+            options={{
+              autoStart: true,
+              delay: 50,
+              cursor: '',
+              deleteSpeed: Infinity,
+            }}       
+          />
+
+          {/* Blinking Continue Text */}
+          {showContinueText && (
+            <h2 className="mt-4 text-[16px] text-center font-lato text-red-600 animate-pulse">
+              Click to continue...
+            </h2>
+          )}
+
         </div>
       </div>
       <div className="fixed w-full bottom-0 flex justify-between px-10">

@@ -91,19 +91,27 @@ const Page1 = () => {
       >
         <div className="glass-dialogue-box h-full flex flex-col items-center">
           <h1 className="w-auto text-center">
-            <Typewriter
-              options={{
-                strings: [dialogues[dialogueIndex]],
-                autoStart: true,
-                delay: 50,
-                cursor: '',
-                deleteSpeed: Infinity,
-                onStringTyped: (arrayPos, self) => {
-                  console.log("Typing complete");
-                  setShowContinueText(true); // Show continue text when typing is complete
-                },
-              }}
-            />
+          <Typewriter
+             key={dialogueIndex} 
+            onInit={(typewriter) => {
+              typewriter
+                .callFunction(() => {
+                  setShowContinueText(false);
+                })
+                .typeString(dialogues[dialogueIndex])
+                .start()
+                .callFunction(() => {
+                  setShowContinueText(true);
+                })
+                
+            }}   
+            options={{
+              autoStart: true,
+              delay: 50,
+              cursor: '',
+              deleteSpeed: Infinity,
+            }}       
+          />
           </h1>
           {/* Blinking Continue Text */}
         {showContinueText && (
