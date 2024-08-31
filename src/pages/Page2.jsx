@@ -48,7 +48,7 @@ const Page2 = () => {
 
   const handleDialogueClick = () => {
   // Hide the "Click to continue..." text immediately when clicking
-  setShowContinueText(false);
+  // setShowContinueText(false);
 
   setTimeout(() => {
     setDialogueIndex((prevIndex) => {
@@ -96,9 +96,6 @@ const Page2 = () => {
              key={dialogueIndex} 
             onInit={(typewriter) => {
               typewriter
-                .callFunction(() => {
-                  setShowContinueText(false);
-                })
                 .typeString(dialogues[dialogueIndex])
                 .start()
                 .callFunction(() => {

@@ -95,9 +95,6 @@ const Page1 = () => {
              key={dialogueIndex} 
             onInit={(typewriter) => {
               typewriter
-                .callFunction(() => {
-                  setShowContinueText(false);
-                })
                 .typeString(dialogues[dialogueIndex])
                 .start()
                 .callFunction(() => {
