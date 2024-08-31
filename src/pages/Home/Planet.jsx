@@ -3,15 +3,17 @@
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
+import { useNavigate } from "react-router-dom";
 import vertexShader from "../../shaders/vertex.glsl";
 import fragmentShader from "../../shaders/fragment.glsl";
 import atmosphereVertexShader from "../../shaders/atmosphereVertex.glsl";
 import atmosphereFragmentShader from "../../shaders/atmosphereFragment.glsl";
-import swooshSound from "../../assets/sounds/swoosh.mp3";
-import { useNavigate } from "react-router-dom";
+import swooshSound from "/assets/sounds/swoosh.mp3";
 import "../../style/canvas.css";
+import bumpMapTexture from '/assets/img/titan-black-and-white.jpg';
+import planetTexture from '/assets/img/titan.jpg';
 
-const Planet = ({ texturePath }) => {
+const Planet = () => {
   const canvasContainerRef = useRef(null);
   const canvasRef = useRef(null);
   const audioRef = useRef(new Audio(swooshSound));
@@ -44,14 +46,14 @@ const Planet = ({ texturePath }) => {
         fragmentShader,
         uniforms: {
           globeTexture: {
-            value: new THREE.TextureLoader().load(texturePath),
+            value: new THREE.TextureLoader().load(planetTexture),
           },
           bumpMap: {
-            value: new THREE.TextureLoader().load('./src/assets/img/titan-black-and-white.jpg'),
+            value: new THREE.TextureLoader().load(
+              bumpMapTexture
+            ),
           },
-          bumpScale: {
-            value: .08, // Adjust the scale as needed
-          },
+          bumpScale: { value: 0.08 }, // Adjust the scale as needed
         },
       })
     );
@@ -66,7 +68,6 @@ const Planet = ({ texturePath }) => {
         side: THREE.BackSide,
       })
     );
-
     atmosphere.scale.set(1.1, 1.1, 1.1);
     scene.add(atmosphere);
 
@@ -110,9 +111,6 @@ const Planet = ({ texturePath }) => {
 
     const raycaster = new THREE.Raycaster();
     const popUpEl = document.querySelector("#popUpEl");
-    const populationEl = document.querySelector("#populationEl");
-    const populationValueEl = document.querySelector("#populationValueEl");
-
     // Animate function
     function animate() {
       requestAnimationFrame(animate);
@@ -122,25 +120,6 @@ const Planet = ({ texturePath }) => {
       // Rotate the planet continuously
       sphere.rotation.y += 0.005;
 
-      const intersects = raycaster.intersectObjects(
-        group.children.filter((mesh) => mesh.geometry.type === "BoxGeometry")
-      );
-
-      group.children.forEach((mesh) => {
-        mesh.material.opacity = 0.4;
-      });
-
-      gsap.set(popUpEl, { display: "none" });
-
-      for (let i = 0; i < intersects.length; i++) {
-        const box = intersects[i].object;
-        box.material.opacity = 1;
-        gsap.set(popUpEl, { display: "block" });
-
-        populationEl.innerHTML = box.country;
-        populationValueEl.innerHTML = box.population;
-      }
-
       renderer.render(scene, camera);
     }
     animate();
@@ -148,7 +127,6 @@ const Planet = ({ texturePath }) => {
     const zoomIn = () => {
       if (camera.position.z > 1) {
         camera.position.z -= 0.5;
-        renderer.render(scene, camera);
         requestAnimationFrame(zoomIn);
       } else {
         navigate("/page1");
@@ -181,8 +159,6 @@ const Planet = ({ texturePath }) => {
         mouse.x = (event.clientX / innerWidth) * 2 - 1;
         mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1;
       }
-
-      gsap.set(popUpEl, { x: event.clientX, y: event.clientY });
 
       if (mouse.down) {
         event.preventDefault();
@@ -228,7 +204,7 @@ const Planet = ({ texturePath }) => {
       scene.clear();
       renderer.dispose();
     };
-  }, [texturePath, navigate]);
+  }, [ navigate]);
 
   return (
     <div

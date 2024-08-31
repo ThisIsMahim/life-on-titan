@@ -1,30 +1,33 @@
 /* eslint-disable no-unused-vars */
-// SURFACE
+// Surface
 import { Suspense, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import RippleButton from "./Shared/RippleButton";
-import Robot from "./Shared/robot";
+import Robot from "./Shared/Robot";
 import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
 import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
 
-const Page3 = () => {
+const Page2 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
   const [robotPose, setRobotPose] = useState("pose 1 - presentation");
   const { speak, selectedVoice } = useSpeechSynthesis();
   const dialogues = [
-    "Now, let's talk about Titan's atmosphere.", // Initial dialogue
-    "Titan's atmosphere is incredibly dense—about 1.5 times thicker than Earth's, making it the only moon with a significant atmosphere.",
-    "The atmosphere is primarily composed of nitrogen, making up about 95%, with methane and hydrogen filling most of the rest.",
-    "The surface pressure on Titan is 1.5 times that of Earth, which is equivalent to the pressure found 15 meters underwater on Earth.",
-    "The temperature on Titan's surface is extremely cold, averaging around -179.2°C, or -290.5°F, cold enough to keep methane and ethane in liquid form.",
-    "Titan also experiences a methane cycle similar to Earth's water cycle, with methane clouds, rain, and even seasonal weather patterns.",
-  ];
+    "Now, let's explore the surface of Titan.",
+    "Titan's surface is a fascinating and complex landscape, with vast plains, dunes, mountains, and lakes made of liquid methane and ethane.",
+    "The surface is primarily covered with a thick layer of organic-rich haze, giving Titan its characteristic orange color.",
+    "Beneath the haze, Titan's landscape is carved by rivers and lakes of liquid hydrocarbons, particularly in the polar regions, making it the only body in our solar system other than Earth with stable liquid on its surface.",
+    "The surface is also marked by icy volcanoes, known as cryovolcanoes, which spew water and ammonia instead of molten rock.",
+    "Despite the frigid conditions, Titan's surface is constantly reshaped by erosion and the flow of liquid methane, creating a dynamic environment.",
+    "In some regions, vast sand dunes stretch for hundreds of kilometers, composed of hydrocarbon grains that have settled from Titan's thick atmosphere.",
+    "The surface pressure on Titan is slightly higher than Earth's, allowing the stable presence of liquid methane and ethane, which form lakes and rivers that could be similar to those on Earth, just much colder.",
+];
+
 
   const poses = [
      // Pose for the initial dialogue
@@ -34,6 +37,7 @@ const Page3 = () => {
     "pose 4 - warm welcome",
     "pose 5 - sit sad",
     "pose 6 - presentation flipped",
+    "pose 4 - warm welcome",
   ];
 
  
@@ -56,6 +60,7 @@ const handleDialogueClick = () => {
       return newIndex;
     });
   }, 500);
+  
 };
 
   const handleExit = () => {
@@ -70,7 +75,7 @@ const handleDialogueClick = () => {
       <Canvas>
         <Suspense fallback={null}>
           {/* // Background component for setting the background texture with a dark overlay */}
-          <Background texturePath="src/assets/img/page2-bg.jpg" />
+          <Background texturePath="/assets/img/titan-scenery-1.jpg" />
           <Robot
             animateIn={animateRobot}
             animateOut={animateOut}
@@ -90,8 +95,8 @@ const handleDialogueClick = () => {
         </div>
       </div>
       <div className="fixed w-full bottom-0 flex justify-between px-10">
-        <RippleButton navigateTo="/page1">Previous</RippleButton>
-        <RippleButton navigateTo="/page3" onClick={handleExit}>
+        <RippleButton navigateTo="/page2">Previous</RippleButton>
+        <RippleButton navigateTo="/page4" onClick={handleExit}>
           Next
         </RippleButton>
       </div>
@@ -99,4 +104,4 @@ const handleDialogueClick = () => {
   );
 };
 
-export default Page3;
+export default Page2;

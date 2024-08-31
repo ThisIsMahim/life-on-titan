@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import audioOn from "../../assets/img/volume.png";
-import audioOff from "../../assets/img/mute.png";
+import audioOn from "/assets/img/volume.png";
+import audioOff from "/assets/img/mute.png";
 const AudioControl = ({ audioRef }) => {
   const [isMuted, setIsMuted] = useState(true);
 

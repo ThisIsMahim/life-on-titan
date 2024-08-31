@@ -9,14 +9,15 @@ import * as THREE from "three";
 
 const Robot = ({ animateIn, animateOut, onClick, pose, animateInDirection, animateOutDirection }) => {
   const group = useRef();
-  const { scene, animations } = useGLTF("src/assets/models/robot.gltf");
+  const { scene, animations } = useGLTF("/assets/models/robot.gltf");
   const { actions } = useAnimations(animations, group);
 
   // Load textures
-  const baseColorMap = useLoader(THREE.TextureLoader, "src/assets/models/textures/body_baseColor.png");
-  const emissiveMap = useLoader(THREE.TextureLoader, "src/assets/models/textures/body_emissive.png");
-  const metalnessMap = useLoader(THREE.TextureLoader, "src/assets/models/textures/body_metallicRoughness.png");
-  const normalMap = useLoader(THREE.TextureLoader, "src/assets/models/textures/body_normal.png");
+  const baseColorMap = useLoader(THREE.TextureLoader, "/assets/models/textures/body_baseColor.png");
+  const emissiveMap = useLoader(THREE.TextureLoader, "/assets/models/textures/body_emissive.png");
+  const metalnessMap = useLoader(THREE.TextureLoader, "/assets/models/textures/body_metallicRoughness.png");
+  const normalMap = useLoader(THREE.TextureLoader, "/assets/models/textures/body_normal.png");
+  
 
   useEffect(() => {
     scene.traverse((child) => {

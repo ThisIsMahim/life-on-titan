@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import soundFile from "../../assets/sounds/click.mp3";
+import soundFile from "/assets/sounds/click.mp3";
 import "../../style/button.css";
 
 const RippleButton = ({ children, onClick, navigateTo }) => {

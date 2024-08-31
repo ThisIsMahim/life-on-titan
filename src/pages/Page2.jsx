@@ -4,7 +4,7 @@ import { Suspense, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import RippleButton from "./Shared/RippleButton";
-import Robot from "./Shared/robot";
+import Robot from "./Shared/Robot";
 import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
 import Background from "./Shared/Background";
@@ -71,7 +71,7 @@ const handleDialogueClick = () => {
       <Canvas>
         <Suspense fallback={null}>
           {/* // Background component for setting the background texture with a dark overlay */}
-          <Background texturePath="src/assets/img/page2-bg.jpg" />
+          <Background texturePath="/assets/img/page2-bg.jpg" />
           <Robot
             animateIn={animateRobot}
             animateOut={animateOut}

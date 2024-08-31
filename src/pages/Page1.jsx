@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { Water } from "three/examples/jsm/objects/Water";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import RippleButton from "./Shared/RippleButton";
-import Robot from "./Shared/robot";
+import Robot from "./Shared/Robot";
 import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
@@ -65,7 +65,7 @@ const Page1 = () => {
     >
       <Canvas>
         <Suspense fallback={null}>
-          <Background texturePath={"src/assets/img/titan-scenery-3.jpg"} />
+          <Background texturePath={"/assets/img/titan-scenery-3.jpg"} />
           <WaterComponent />
           <Robot
             animateIn={animateRobot}

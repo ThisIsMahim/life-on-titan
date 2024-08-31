@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Planet from "./Planet";
 import "./Home.css";
 import gsap from "gsap";
-import backgroundMusicFile from "../../assets/sounds/space-bg-1.mp3";
+import backgroundMusicFile from "/assets/sounds/space-bg-1.mp3";
 import AudioControl from "../Shared/AudioControl";
 
 const Home = () => {
@@ -134,7 +134,7 @@ const Home = () => {
       
 
       {/* Planet */}
-      <Planet texturePath={"./src/assets/img/titan.jpg"} />
+      <Planet/>
 
     </div>
   );
