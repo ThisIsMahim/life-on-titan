@@ -5,6 +5,8 @@ import NotFound from "../pages/Shared/NotFound";
 import Page1 from "../pages/Page1";
 import Page2 from "../pages/Page2";
 import Page3 from "../pages/Page3";
+import Page4 from "../pages/Page4";
+import Page5 from "../pages/Page5";
 
 const router = createHashRouter([
   {
@@ -27,6 +29,14 @@ const router = createHashRouter([
       {
         path: "page3", 
         element: <Page3 />,
+      },
+      {
+        path: "page4", 
+        element: <Page4 />,
+      },
+      {
+        path: "page5", 
+        element: <Page5 />,
       },
     ],
   },

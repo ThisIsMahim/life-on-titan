@@ -51,6 +51,7 @@ useEffect(() => {
 }, [selectedVoice]);
 
 const handleDialogueClick = () => {
+  setShowContinueText(false);
   setTimeout(() => {
     setDialogueIndex((prevIndex) => {
       const newIndex = (prevIndex + 1) % dialogues.length;
@@ -94,10 +95,9 @@ const handleDialogueClick = () => {
       >
         <div className="glass-dialogue-box h-full flex items-center flex-col">
         <Typewriter
-             key={dialogueIndex} 
+            key={dialogueIndex} 
             onInit={(typewriter) => {
               typewriter
-                
                 .typeString(dialogues[dialogueIndex])
                 .start()
                 .callFunction(() => {

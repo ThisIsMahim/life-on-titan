@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-// ATMOSPHERE
+// Surface
 import { Suspense, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -12,7 +12,7 @@ import Background from "./Shared/Background";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
 import Typewriter from 'typewriter-effect';
 
-const Page2 = () => {
+const Page4 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
@@ -20,38 +20,38 @@ const Page2 = () => {
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
   const dialogues = [
-    "Now, let's talk about Titan's atmosphere.", // Initial dialogue
-    "Titan's atmosphere is incredibly dense—about 1.5 times thicker than Earth's, making it the only moon with a significant atmosphere.",
-    "The atmosphere is primarily composed of nitrogen, making up about 95%, with methane and hydrogen filling most of the rest.",
-    "The surface pressure on Titan is 1.5 times that of Earth, which is equivalent to the pressure found 15 meters underwater on Earth.",
-    "The temperature on Titan's surface is extremely cold, averaging around -179.2°C, or -290.5°F, cold enough to keep methane and ethane in liquid form.",
-    "Titan also experiences a methane cycle similar to Earth's water cycle, with methane clouds, rain, and even seasonal weather patterns.",
-  ];
+   "Beneath Titan's icy crust, there might be an entire ocean waiting to be discovered.",
+    "This subsurface ocean could be composed of water mixed with ammonia, which keeps it in a liquid state despite the frigid temperatures.",
+    "Life as we know it might adapt to thrive in this hidden ocean, perhaps near hydrothermal vents that could provide the necessary heat and nutrients.",
+    "These vents could be similar to those found deep in Earth's oceans, where life exists without sunlight.",
+    "Imagine an ecosystem where chemical energy, rather than sunlight, fuels life—microbial communities thriving in complete darkness.",
+    "Exploring this ocean could uncover some of the most profound secrets of life beyond Earth.",
+    "So, lets dive deep beneath Titans surface and explore the possibilities of life in this alien ocean."
+];
+
 
   const poses = [
-    // Pose for the initial dialogue
+     // Pose for the initial dialogue
     "pose 1 - presentation",
     "pose 3 - hello",
     "pose 2 - omfg",
     "pose 4 - warm welcome",
     "pose 5 - sit sad",
     "pose 6 - presentation flipped",
+    "pose 4 - warm welcome",
   ];
 
+ 
+//  The speech and Dialougue handling commands
+useEffect(() => {
+  if (selectedVoice) {
+    speak(dialogues[0]);
+  }
+}, [selectedVoice]);
 
-  //  The speech and Dialougue handling commands
-  useEffect(() => {
-    if (selectedVoice) {
-      speak(dialogues[0]);
-    }
-  }, [selectedVoice]);
-
-  const handleDialogueClick = () => {
-  // Hide the "Click to continue..." text immediately when clicking
-  // setShowContinueText(false);
-
+const handleDialogueClick = () => {
+  setShowContinueText(false);
   setTimeout(() => {
-    setShowContinueText(false);
     setDialogueIndex((prevIndex) => {
       const newIndex = (prevIndex + 1) % dialogues.length;
       setRobotPose(poses[newIndex]);
@@ -62,8 +62,8 @@ const Page2 = () => {
       return newIndex;
     });
   }, 500);
+  
 };
-
 
   const handleExit = () => {
     setAnimateOut(true);
@@ -77,7 +77,7 @@ const Page2 = () => {
       <Canvas>
         <Suspense fallback={null}>
           {/* // Background component for setting the background texture with a dark overlay */}
-          <Background texturePath="/assets/img/page2-bg.jpg" />
+          <Background texturePath="/assets/img/titan-scenery-4.jpg" />
           <Robot
             animateIn={animateRobot}
             animateOut={animateOut}
@@ -93,10 +93,11 @@ const Page2 = () => {
         onClick={handleDialogueClick}
       >
         <div className="glass-dialogue-box h-full flex items-center flex-col">
-          <Typewriter
+        <Typewriter
              key={dialogueIndex} 
             onInit={(typewriter) => {
               typewriter
+                
                 .typeString(dialogues[dialogueIndex])
                 .start()
                 .callFunction(() => {
@@ -118,12 +119,12 @@ const Page2 = () => {
               Click to continue...
             </h2>
           )}
-
         </div>
       </div>
+
       <div className="fixed w-full bottom-0 flex justify-between px-10">
-        <RippleButton navigateTo="/page1">Previous</RippleButton>
-        <RippleButton navigateTo="/page3" onClick={handleExit}>
+        <RippleButton navigateTo="/page3">Previous</RippleButton>
+        <RippleButton navigateTo="/page5" onClick={handleExit}>
           Next
         </RippleButton>
       </div>
@@ -131,4 +132,4 @@ const Page2 = () => {
   );
 };
 
-export default Page2;
+export default Page4;
