@@ -19,16 +19,22 @@ const Page1 = () => {
   const { speak, selectedVoice } = useSpeechSynthesis();
 
   const dialogues = [
-    "Hello there, I am Chiko", // Initial dialogue
-    "Welcome to our planet Titan, where 95% of the air is nitrogen and 5% is methane.",
-    "Titan is the only moon known to have a dense atmosphere.",
-    "Titan's surface is covered with rivers and lakes of liquid methane and ethane.",
-  ];
+    "Greetings, Earthling! I am Chiko, your guide to the wonders of Titan.",
+    "I was designed to explore this icy moon and uncover the secrets of life beyond Earth.",
+    "Welcome to Titan, a world where life finds a way through chemosynthesis, not sunlight.",
+    "As the face of this mission, I'm here to show you how life can thrive in the most unexpected places.",
+    "On Titan, life doesn’t rely on the sun. Instead, it harnesses energy from chemical reactions deep below the icy surface.",
+    "Together, we'll discover the unique ecosystems of Titan, where methane rivers flow and icy mountains touch the sky.",
+    "Get ready for an adventure like no other, as we explore Titan’s mysteries and learn how life adapts in a world so different from our own.",
+];
 
   const poses = [
     "pose 3 - hello", // Pose for the initial dialogue
     "pose 1 - presentation",
+    "pose 4 - warm welcome",
     "pose 2 - omfg",
+    "pose 5 - sit sad",
+    "pose 6 - presentation flipped",
     "pose 4 - warm welcome",
   ];
 

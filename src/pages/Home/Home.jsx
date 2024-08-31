@@ -81,7 +81,7 @@ const Home = () => {
           className="absolute inset-0 bg-glass flex flex-col items-center justify-center cursor-pointer z-20 backdrop-blur-sm bg-[#4183da29] rounded-lg w-full"
           onClick={handleUserInteraction}
         >
-          <div className="text-black text-4xl font-jersey p-6 bg-opacity-90 rounded-lg shining-title">
+          <div className="text-black text-center text-4xl font-jersey p-6 bg-opacity-90 rounded-lg shining-title">
             Click Here To Start Journey
           </div>
         </div>
