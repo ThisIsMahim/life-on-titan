@@ -69,3 +69,20 @@
       transform: translateY(-10px);
     }
   }
+
+  @keyframes shine-title {
+    0% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 1), 0 0 80px rgba(255, 255, 255, 1), 0 0 120px rgba(255, 255, 255, 1), 0 0 160px rgba(255, 255, 255, 1);
+    }
+    50% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.1), 0 0 10px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.3), 0 0 120px rgba(255, 255, 255, 0.3), 0 0 160px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 1), 0 0 80px rgba(255, 255, 255, 1), 0 0 120px rgba(255, 255, 255, 1), 0 0 160px rgba(255, 255, 255, 1);
+    }
+  }
+  
+  .shining-title {
+    animation: shine-title 3.5s infinite ease-in-out;
+  }
+  

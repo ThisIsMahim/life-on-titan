@@ -10,7 +10,7 @@ import Light from "./Shared/Light";
 import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
 
 const Page4 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
@@ -20,18 +20,18 @@ const Page4 = () => {
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
   const dialogues = [
-   "Beneath Titan's icy crust, there might be an entire ocean waiting to be discovered.",
-    "This subsurface ocean could be composed of water mixed with ammonia, which keeps it in a liquid state despite the frigid temperatures.",
+    "Beneath Titan's icy crust, there might be an entire ocean waiting to be discovered.",
+    "NASA's Cassini spacecraft used radar measurements of Titan's rotation to detect the ocean.",
+    "The ocean is located about 100 kilometers beneath the moon's icy crust.",
+    "The ocean is likely made up of liquid water mixed with ammonia and salts, which keeps it in a liquid state despite the frigid temperatures.",
     "Life as we know it might adapt to thrive in this hidden ocean, perhaps near hydrothermal vents that could provide the necessary heat and nutrients.",
     "These vents could be similar to those found deep in Earth's oceans, where life exists without sunlight.",
     "Imagine an ecosystem where chemical energy, rather than sunlight, fuels life—microbial communities thriving in complete darkness.",
-    "Exploring this ocean could uncover some of the most profound secrets of life beyond Earth.",
-    "So, lets dive deep beneath Titans surface and explore the possibilities of life in this alien ocean."
-];
-
+    "So, lets dive deep beneath Titans surface and explore the possibilities of life in this alien ocean.",
+  ];
 
   const poses = [
-     // Pose for the initial dialogue
+    // Pose for the initial dialogue
     "pose 1 - presentation",
     "pose 3 - hello",
     "pose 2 - omfg",
@@ -41,29 +41,27 @@ const Page4 = () => {
     "pose 4 - warm welcome",
   ];
 
- 
-//  The speech and Dialougue handling commands
-useEffect(() => {
-  if (selectedVoice) {
-    speak(dialogues[0]);
-  }
-}, [selectedVoice]);
+  //  The speech and Dialougue handling commands
+  useEffect(() => {
+    if (selectedVoice) {
+      speak(dialogues[0]);
+    }
+  }, [selectedVoice]);
 
-const handleDialogueClick = () => {
-  setShowContinueText(false);
-  setTimeout(() => {
-    setDialogueIndex((prevIndex) => {
-      const newIndex = (prevIndex + 1) % dialogues.length;
-      setRobotPose(poses[newIndex]);
-      if (newIndex !== prevIndex) {
-        speak(dialogues[newIndex]);
-        setAnimateRobot(true);
-      }
-      return newIndex;
-    });
-  }, 500);
-  
-};
+  const handleDialogueClick = () => {
+    setShowContinueText(false);
+    setTimeout(() => {
+      setDialogueIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % dialogues.length;
+        setRobotPose(poses[newIndex]);
+        if (newIndex !== prevIndex) {
+          speak(dialogues[newIndex]);
+          setAnimateRobot(true);
+        }
+        return newIndex;
+      });
+    }, 500);
+  };
 
   const handleExit = () => {
     setAnimateOut(true);
@@ -93,29 +91,28 @@ const handleDialogueClick = () => {
         onClick={handleDialogueClick}
       >
         <div className="glass-dialogue-box h-full flex items-center flex-col">
-        <Typewriter
-             key={dialogueIndex} 
+          <Typewriter
+            key={dialogueIndex}
             onInit={(typewriter) => {
               typewriter
-                
+
                 .typeString(dialogues[dialogueIndex])
                 .start()
                 .callFunction(() => {
                   setShowContinueText(true);
-                })
-                
-            }}   
+                });
+            }}
             options={{
               autoStart: true,
               delay: 50,
-              cursor: '',
+              cursor: "",
               deleteSpeed: Infinity,
-            }}       
+            }}
           />
 
           {/* Blinking Continue Text */}
           {showContinueText && (
-            <h2 className="mt-4 text-[16px] text-center font-lato text-red-600 animate-pulse">
+            <h2 className="mt-4 text-[16px] text-center font-lato text-white animate-pulse">
               Click to continue...
             </h2>
           )}

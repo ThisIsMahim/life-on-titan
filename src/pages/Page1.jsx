@@ -112,7 +112,7 @@ const Page1 = () => {
           </h1>
           {/* Blinking Continue Text */}
         {showContinueText && (
-          <h2 className="mt-4 text-[16px] text-center font-lato text-red-600 animate-pulse">
+          <h2 className="mt-4 text-[16px] text-center font-lato text-white animate-pulse">
             Click to continue...
           </h2>
         )}
