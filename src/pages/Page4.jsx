@@ -11,58 +11,107 @@ import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
 import Typewriter from "typewriter-effect";
+import PhotoCard from "./Shared/PhotoCard";
 
 const Page4 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
+  const [photoCardShow,setPhotoCardShow] = useState(false);
   const [robotPose, setRobotPose] = useState("pose 1 - presentation");
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
   const dialogues = [
-    "Beneath Titan's icy crust, there might be an entire ocean waiting to be discovered.",
-    "NASA's Cassini spacecraft used radar measurements of Titan's rotation to detect the ocean.",
-    "The ocean is located about 100 kilometers beneath the moon's icy crust.",
-    "The ocean is likely made up of liquid water mixed with ammonia and salts, which keeps it in a liquid state despite the frigid temperatures.",
-    "Life as we know it might adapt to thrive in this hidden ocean, perhaps near hydrothermal vents that could provide the necessary heat and nutrients.",
-    "These vents could be similar to those found deep in Earth's oceans, where life exists without sunlight.",
-    "Imagine an ecosystem where chemical energy, rather than sunlight, fuels life—microbial communities thriving in complete darkness.",
-    "So, lets dive deep beneath Titans surface and explore the possibilities of life in this alien ocean.",
+    {
+      text: "Beneath Titan's icy crust, there might be an entire ocean waiting to be discovered.",
+      pose: "pose 1 - presentation",
+      showPhotoCard: false,
+      photoPath: "",
+      photoCardPlace: "",
+    },
+    {
+      text: "NASA's Cassini spacecraft used radar measurements of Titan's rotation to detect the ocean.",
+      pose: "pose 2 - omfg",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page4/cassini-radar.jpeg", // Replace with the correct image path
+      photoCardPlace: "",
+    },
+    {
+      text: "The ocean is located about 100 kilometers beneath the moon's icy crust.",
+      pose: "pose 3 - hello",
+      showPhotoCard: false,
+      photoPath: "",
+      photoCardPlace: "",
+    },
+    {
+      text: "The ocean is likely made up of liquid water mixed with ammonia and salts, which keeps it in a liquid state despite the frigid temperatures.",
+      pose: "pose 4 - warm welcome",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page4/liquid-ocean.jpeg", // Replace with the correct image path
+      photoCardPlace: "",
+    },
+    {
+      text: "Life as we know it might adapt to thrive in this hidden ocean, perhaps near hydrothermal vents that could provide the necessary heat and nutrients.",
+      pose: "pose 5 - sit sad",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page4/hydrothermal-vents.jpeg", // Replace with the correct image path
+      photoCardPlace: "",
+    },
+    {
+      text: "These vents could be similar to those found deep in Earth's oceans, where life exists without sunlight.",
+      pose: "pose 6 - presentation flipped",
+      showPhotoCard: false,
+      photoPath: "",
+      photoCardPlace: "",
+    },
+    {
+      text: "Imagine an ecosystem where chemical energy, rather than sunlight, fuels life—microbial communities thriving in complete darkness.",
+      pose: "pose 1 - presentation",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page4/chemosynthesis.jpeg", // Replace with the correct image path
+      photoCardPlace: "",
+    },
+    {
+      text: "So, let's dive deep beneath Titan's surface and explore the possibilities of life in this alien ocean.",
+      pose: "pose 2 - omfg",
+      showPhotoCard: false,
+      photoPath: "",
+      photoCardPlace: "",
+    },
   ];
+  
 
-  const poses = [
-    // Pose for the initial dialogue
-    "pose 1 - presentation",
-    "pose 3 - hello",
-    "pose 2 - omfg",
-    "pose 4 - warm welcome",
-    "pose 5 - sit sad",
-    "pose 6 - presentation flipped",
-    "pose 4 - warm welcome",
-  ];
-
+  
   //  The speech and Dialougue handling commands
   useEffect(() => {
     if (selectedVoice) {
-      speak(dialogues[0]);
+      speak(dialogues[0].text);
     }
   }, [selectedVoice]);
 
   const handleDialogueClick = () => {
-    setShowContinueText(false);
     setTimeout(() => {
+      setShowContinueText(false);
       setDialogueIndex((prevIndex) => {
         const newIndex = (prevIndex + 1) % dialogues.length;
-        setRobotPose(poses[newIndex]);
-        if (newIndex !== prevIndex) {
-          speak(dialogues[newIndex]);
-          setAnimateRobot(true);
+  
+        // Update robot pose
+        setRobotPose(dialogues[newIndex].pose);
+  
+        // Speak the new dialogue
+        speak(dialogues[newIndex].text);
+  
+        // Check if PhotoCard should be shown
+        if (dialogues[newIndex].showPhotoCard) {
+          setPhotoCardShow(true);
+        } else {
+          setPhotoCardShow(false);
         }
+  
         return newIndex;
       });
     }, 500);
   };
-
   const handleExit = () => {
     setAnimateOut(true);
   };
@@ -85,6 +134,7 @@ const Page4 = () => {
           <CameraControl />
         </Suspense>
       </Canvas>
+      
       {/* Dialogue Box */}
       <div
         className="absolute lg:bottom-36 bottom-32 flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer"
@@ -96,7 +146,7 @@ const Page4 = () => {
             onInit={(typewriter) => {
               typewriter
 
-                .typeString(dialogues[dialogueIndex])
+                .typeString(dialogues[dialogueIndex].text)
                 .start()
                 .callFunction(() => {
                   setShowContinueText(true);
@@ -118,7 +168,11 @@ const Page4 = () => {
           )}
         </div>
       </div>
-
+      <PhotoCard
+            path={dialogues[dialogueIndex].photoPath}
+            isShown={photoCardShow}
+            placement={dialogues[dialogueIndex].photoCardPlace}
+          />
       <div className="fixed w-full bottom-0 flex justify-between px-10">
         <RippleButton navigateTo="/page3">Previous</RippleButton>
         <RippleButton navigateTo="/page5" onClick={handleExit}>

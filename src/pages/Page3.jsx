@@ -10,61 +10,106 @@ import Light from "./Shared/Light";
 import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
+import PhotoCard from "./Shared/PhotoCard";
 
 const Page2 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
+  const [photoCardShow, setPhotoCardShow] = useState(false);
   const [robotPose, setRobotPose] = useState("pose 1 - presentation");
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
   const dialogues = [
-    "Now, let's explore the surface of Titan.",
-    "Titan's surface is a fascinating and complex landscape, with vast plains, dunes, mountains, and lakes made of liquid methane and ethane.",
-    "The surface is primarily covered with a thick layer of organic-rich haze, giving Titan its characteristic orange color.",
-    "Beneath the haze, Titan's landscape is carved by rivers and lakes of liquid hydrocarbons, particularly in the polar regions, making it the only body in our solar system other than Earth with stable liquid on its surface.",
-    "The surface is also marked by icy volcanoes, known as cryovolcanoes, which spew water and ammonia instead of molten rock.",
-    "Despite the frigid conditions, Titan's surface is constantly reshaped by erosion and the flow of liquid methane, creating a dynamic environment.",
-    "In some regions, vast sand dunes stretch for hundreds of kilometers, composed of hydrocarbon grains that have settled from Titan's thick atmosphere.",
-    "The surface pressure on Titan is slightly higher than Earth's, allowing the stable presence of liquid methane and ethane, which form lakes and rivers that could be similar to those on Earth, just much colder.",
-];
-
-
-  const poses = [
-     // Pose for the initial dialogue
-    "pose 1 - presentation",
-    "pose 3 - hello",
-    "pose 2 - omfg",
-    "pose 4 - warm welcome",
-    "pose 5 - sit sad",
-    "pose 6 - presentation flipped",
-    "pose 4 - warm welcome",
+    {
+      text: "Now, let's explore the surface of Titan.",
+      pose: "pose 1 - presentation",
+      showPhotoCard: false,
+      photoPath: "",
+      photoCardPlace: "",
+    },
+    {
+      text: "Titan's surface is a fascinating and complex landscape, with vast plains, dunes, mountains, and lakes made of liquid methane and ethane.",
+      pose: "pose 2 - omfg",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page3/surface-overview.jpeg", // Replace with the correct image path
+      photoCardPlace: "left",
+    },
+    {
+      text: "The surface is primarily covered with a thick layer of organic-rich haze, giving Titan its characteristic orange color.",
+      pose: "pose 3 - hello",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page3/organic-haze.jpeg", // Replace with the correct image path
+      photoCardPlace: "right",
+    },
+    {
+      text: "Beneath the haze, Titan's landscape is carved by rivers and lakes of liquid hydrocarbons, particularly in the polar regions, making it the only body in our solar system other than Earth with stable liquid on its surface.",
+      pose: "pose 4 - warm welcome",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page3/liquid-hydrocarbons.jpeg", // Replace with the correct image path
+      photoCardPlace: "left",
+    },
+    {
+      text: "The surface is also marked by icy volcanoes, known as cryovolcanoes, which spew water and ammonia instead of molten rock.",
+      pose: "pose 5 - sit sad",
+      showPhotoCard: false,
+      photoPath: "",
+      photoCardPlace: "",
+    },
+    {
+      text: "Despite the frigid conditions, Titan's surface is constantly reshaped by erosion and the flow of liquid methane, creating a dynamic environment.",
+      pose: "pose 6 - presentation flipped",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page3/erosion.jpeg", // Replace with the correct image path
+      photoCardPlace: "right",
+    },
+    {
+      text: "In some regions, vast sand dunes stretch for hundreds of kilometers, composed of hydrocarbon grains that have settled from Titan's thick atmosphere.",
+      pose: "pose 1 - presentation",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page3/sand-dunes.jpeg", // Replace with the correct image path
+      photoCardPlace: "left",
+    },
+    {
+      text: "The surface pressure on Titan is slightly higher than Earth's, allowing the stable presence of liquid methane and ethane, which form lakes and rivers that could be similar to those on Earth, just much colder.",
+      pose: "pose 2 - omfg",
+      showPhotoCard: false,
+      photoPath: "",
+      photoCardPlace: "",
+    },
   ];
-
- 
-//  The speech and Dialougue handling commands
-useEffect(() => {
-  if (selectedVoice) {
-    speak(dialogues[0]);
-  }
-}, [selectedVoice]);
-
-const handleDialogueClick = () => {
-  setShowContinueText(false);
-  setTimeout(() => {
-    setDialogueIndex((prevIndex) => {
-      const newIndex = (prevIndex + 1) % dialogues.length;
-      setRobotPose(poses[newIndex]);
-      if (newIndex !== prevIndex) {
-        speak(dialogues[newIndex]);
-        setAnimateRobot(true);
-      }
-      return newIndex;
-    });
-  }, 500);
   
-};
+  //  The speech and Dialougue handling commands
+  useEffect(() => {
+    if (selectedVoice) {
+      speak(dialogues[0].text);
+    }
+  }, [selectedVoice]);
+
+  const handleDialogueClick = () => {
+    setTimeout(() => {
+      setShowContinueText(false);
+      setDialogueIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % dialogues.length;
+
+        // Update robot pose
+        setRobotPose(dialogues[newIndex].pose);
+
+        // Speak the new dialogue
+        speak(dialogues[newIndex].text);
+
+        // Check if PhotoCard should be shown
+        if (dialogues[newIndex].showPhotoCard) {
+          setPhotoCardShow(true);
+        } else {
+          setPhotoCardShow(false);
+        }
+
+        return newIndex;
+      });
+    }, 500);
+  };
 
   const handleExit = () => {
     setAnimateOut(true);
@@ -94,25 +139,23 @@ const handleDialogueClick = () => {
         onClick={handleDialogueClick}
       >
         <div className="glass-dialogue-box h-full flex items-center flex-col">
-        <Typewriter
-            key={dialogueIndex} 
+          <Typewriter
+            key={dialogueIndex}
             onInit={(typewriter) => {
               typewriter
-                .typeString(dialogues[dialogueIndex])
+                .typeString(dialogues[dialogueIndex].text)
                 .start()
                 .callFunction(() => {
                   setShowContinueText(true);
-                })
-                
-            }}   
+                });
+            }}
             options={{
               autoStart: true,
               delay: 50,
-              cursor: '',
+              cursor: "",
               deleteSpeed: Infinity,
-            }}       
+            }}
           />
-
           {/* Blinking Continue Text */}
           {showContinueText && (
             <h2 className="mt-4 text-[16px] text-center font-lato text-white animate-pulse">
@@ -121,7 +164,11 @@ const handleDialogueClick = () => {
           )}
         </div>
       </div>
-
+      <PhotoCard
+            path={dialogues[dialogueIndex].photoPath}
+            isShown={photoCardShow}
+            placement={dialogues[dialogueIndex].photoCardPlace}
+          />
       <div className="fixed w-full bottom-0 flex justify-between px-10">
         <RippleButton navigateTo="/page2">Previous</RippleButton>
         <RippleButton navigateTo="/page4" onClick={handleExit}>
