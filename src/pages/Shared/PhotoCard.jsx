@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import gsap from 'gsap';
 import { useEffect,useRef } from 'react';
 
@@ -19,7 +20,7 @@ const PhotoCard = ({path,isShown,placement}) => {
       }
     }, [isShown]);
   return (
-    <div className={`photo-card p-5 ${isShown?"flex":"hidden"} absolute top-10 ${placement=="right"?"right-10":"left-10"} max-h-[280px] max-w-[380px] rounded-sm  bg-white bg-opacity-10 backdrop-blur-lg border-2 border-blue-500 floating-card`}>
+    <div className={`photo-card p-5 ${isShown?"flex":"hidden"} absolute top-10 ${placement=="right"?"right-24":"left-24"} max-h-[280px] max-w-[380px] rounded-sm  bg-white bg-opacity-10 backdrop-blur-lg border-2 border-blue-500 floating-card hover:scale-105 `}>
       <img src={path} alt="Photo" className='w-full h-full' />
     </div>
   )

@@ -44,7 +44,7 @@ const Page2 = () => {
       photoCardPlace: "right",
     },
     {
-      text: "Beneath the haze, Titan's landscape is carved by rivers and lakes of liquid hydrocarbons, particularly in the polar regions, making it the only body in our solar system other than Earth with stable liquid on its surface.",
+      text: "Beneath Titan's haze, rivers and lakes of liquid hydrocarbons carve the landscape, making it the only place besides Earth with stable surface liquids in our solar system.",
       pose: "pose 4 - warm welcome",
       showPhotoCard: true,
       photoPath: "./assets/img/page3/liquid-hydrocarbons.jpeg", // Replace with the correct image path
@@ -72,12 +72,14 @@ const Page2 = () => {
       photoCardPlace: "left",
     },
     {
-      text: "The surface pressure on Titan is slightly higher than Earth's, allowing the stable presence of liquid methane and ethane, which form lakes and rivers that could be similar to those on Earth, just much colder.",
+      text: "Titan's surface pressure, slightly higher than Earth's, allows liquid methane and ethane to form lakes and rivers similar to Earth's, but much colder.",
       pose: "pose 2 - omfg",
-      showPhotoCard: false,
-      photoPath: "",
-      photoCardPlace: "",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page3/methane-lakes.webp",
+      photoCardPlace: "right",
     },
+    // the following is to create another image on the same dialogue 
+    
   ];
   
   //  The speech and Dialougue handling commands

@@ -22,7 +22,7 @@ const Home = () => {
       });
 
       // Fade in the music
-      gsap.to(audio, { volume: 0.5, duration: 2 });
+      gsap.to(audio, { volume: .6, duration: 2 });
 
       const tl = gsap.timeline();
 
