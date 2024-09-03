@@ -9,8 +9,10 @@ import Light from "./Shared/Light";
 import { useWindowSize } from "react-use";
 import RippleButton from "./Shared/RippleButton";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
+import styled from 'styled-components';
 
 gsap.registerPlugin(ScrollTrigger);
+
 
 const Scene = React.memo(({ robotPose, robotPosition, robotVisible }) => (
   <Canvas
@@ -44,7 +46,7 @@ const sectionsData = [
       "Common in deep-sea environments",
       "Supports unique ecosystems in extreme conditions",
     ],
-    bgColor: "bg-blue-500",
+    bgImage: "/assets/img/chemo-scene-5.jpg",  // Corrected image path
   },
   {
     title: "Chemosynthesis Process",
@@ -55,7 +57,7 @@ const sectionsData = [
       "Methane oxidation",
       "Iron oxidation",
     ],
-    bgColor: "bg-blue-400",
+    bgImage: "/assets/img/chemo-scene-2.jpg",  // Corrected image path
   },
   {
     title: "Theories About Chemosynthesis",
@@ -66,44 +68,62 @@ const sectionsData = [
       "Deep-sea hydrothermal vents",
       "Alternative energy sources for life",
     ],
-    bgColor: "bg-blue-500",
+    bgImage: "/assets/img/chemo-scene-1.jpg",  // Corrected image path
   },
 ];
 
 const AnimatedSection = React.forwardRef(
-  ({ title, content, points, bgColor, alignLeft }, ref) => (
+  ({ title, content, points, bgImage, alignLeft }, ref) => (
     <section
       ref={ref}
-      className={`section snap-center min-h-screen w-screen flex flex-col justify-center items-center ${bgColor} text-white`}
+      style={{
+        position: 'relative',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+      className={`section snap-center min-h-screen w-screen flex flex-col justify-center items-center text-white`}
     >
-      <motion.div
-        className={`max-w-2xl w-full mx-auto flex flex-col z-10 ${
-          alignLeft ? "items-start text-left" : "items-end text-right"
-        }`}
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
-      >
-        <h2 className="text-3xl sm:text-5xl font-bold mb-6">{title}</h2>
-        <p className="text-lg sm:text-2xl mb-6 leading-relaxed">{content}</p>
+      <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${bgImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            filter: 'blur(4px)',
+            zIndex: -1,
+          }}
+        />
+
         <motion.div
-          className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 sm:p-8 shadow-lg"
-          initial={{ scale: 0.5, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
+          className={`max-w-2xl w-full mx-auto flex flex-col gap-4 z-10 ${
+            alignLeft ? "items-start text-left" : "items-end text-right"
+          }`}
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "backOut" }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
-          <h3 className="text-2xl sm:text-3xl font-semibold mb-4">
-            Key Points:
-          </h3>
-          <ul className="list-disc list-inside space-y-2 text-base sm:text-xl">
-            {points.map((point, index) => (
-              <li key={index}>{point}</li>
-            ))}
-          </ul>
+          <h2 className="text-3xl sm:text-5xl font-bold mb-6">{title}</h2>
+          <p className=" font-poppins text-lg sm:text-xl mb-6 leading-relaxed">{content}</p>
+          <motion.div
+            className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 sm:p-8 shadow-lg"
+            initial={{ scale: 0.5, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "backOut" }}
+          >
+            <h3 className="text-2xl sm:text-3xl font-semibold mb-4">
+              Key Points:
+            </h3>
+            <ul className="font-poppins list-disc list-inside space-y-2 text-base sm:text-xl">
+              {points.map((point, index) => (
+                <li key={index}>{point}</li>
+              ))}
+            </ul>
+          </motion.div>
         </motion.div>
-      </motion.div>
     </section>
   )
 );
@@ -113,6 +133,7 @@ AnimatedSection.displayName = "AnimatedSection";
 
 // GlassDialogueBox component
 const GlassDialogueBox = () => {
+
   const { speak } = useSpeechSynthesis();
 
   useEffect(() => {
@@ -121,12 +142,20 @@ const GlassDialogueBox = () => {
 
   return (
     <motion.div
-      className="transform -translate-x-1/2 bg-blue-400 h-screen w-screen p-4 sm:p-6 shadow-lg z-0"
+    style={{
+      backgroundImage: "url('/assets/img/chemo-scene-3.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      zIndex: -1,
+    }}
+
+      className="transform -translate-x-1/2 h-screen w-screen sm:p-6 shadow-lg z-0 "
       initial={{ opacity: 0, y: -30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
     >
-      <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-10">
+      <div className=" bg-white bg-opacity-20 rounded-xl p-8">
         <p className="text-xl sm:text-4xl font-semibold text-center font-lato text-white">
           Now let's learn about chemosynthesis
         </p>
@@ -149,7 +178,7 @@ export default function Page5() {
   
     const handleWheel = (event) => {
       if (event.deltaY !== 0) {
-        container.scrollLeft += event.deltaY;
+        container.scrollLeft += event.deltaY*.2;
         event.preventDefault(); // Prevent default vertical scroll
       }
     };
@@ -162,33 +191,17 @@ export default function Page5() {
   }, []);
   
   useEffect(() => {
-    const sections = sectionsRef.current;
-    sections.forEach((section, index) => {
-      ScrollTrigger.create({
-        trigger: section,
-        start: "left center",
-        end: "right center",
-        onEnter: () => updateRobotState(index),
-        onEnterBack: () => updateRobotState(index),
-      });
-    });
-
     ScrollTrigger.create({
       trigger: containerRef.current,
       start: "top top",
       end: "bottom bottom",
-      scrub: true,
       onUpdate: (self) => {
-        const progress = self.progress;
-        const xPosition = isMobile ? 0 + progress * 2 : 2 - progress * 4;
-        setRobotPosition((prev) => [xPosition, prev[1], prev[2]]);
+        console.log(`Scroll progress: ${self.progress}`);
       },
     });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, [isMobile]);
+  }, []);
+  
+  
 
   const updateRobotState = (index) => {
     const poseOptions = [
@@ -201,15 +214,16 @@ export default function Page5() {
   };
 
   return (
-    <div ref={containerRef} className="container overflow-x-scroll overflow-y-hidden w-full h-screen ">
-  <Scene
-    robotPose={robotPose}
-    robotPosition={robotPosition}
-    robotVisible={robotVisible}
-  />
+    <div ref={containerRef} className="overflow-x-scroll overflow-y-hidden w-full h-screen">
+  
   <main className="flex flex-row w-[400vw] min-h-screen snap-x">
     {/* Add GlassDialogueBox component */}
     <GlassDialogueBox />
+    <Scene
+      robotPose={robotPose}
+      robotPosition={robotPosition}
+      robotVisible={robotVisible}
+    />
     {sectionsData.map((section, index) => (
       <AnimatedSection
         key={index}
@@ -217,14 +231,15 @@ export default function Page5() {
         title={section.title}
         content={section.content}
         points={section.points}
-        bgColor={section.bgColor}
-        alignLeft={index % 2 !== 0}
+        bgImage={section.bgImage}
+        alignLeft={1}
         className="w-full" // Ensure sections are full-width
       />
+      
     ))}
 
     {/* Carousel Section */}
-    <section
+    {/* <section
       ref={(el) => (sectionsRef.current[sectionsData.length] = el)}
       className="min-h-screen w-screen flex flex-col justify-center items-center bg-blue-400 text-white"
     >
@@ -297,7 +312,7 @@ export default function Page5() {
           </div>
         </div>
       </div>
-    </section>
+    </section> */}
   </main>
   <div className="fixed w-full bottom-0 flex justify-between px-10 z-0">
     <RippleButton navigateTo="/page4">Previous</RippleButton>
