@@ -62,7 +62,7 @@ const Page2 = () => {
       pose: "pose 6 - presentation flipped",
       showPhotoCard: false,
       photoPath: "",
-      photoCardPlace: "",
+      photoCardPlace: "right",
     },
   ];
   

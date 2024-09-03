@@ -25,41 +25,41 @@ const Page4 = () => {
     {
       text: "Beneath Titan's icy crust, there might be an entire ocean waiting to be discovered.",
       pose: "pose 1 - presentation",
-      showPhotoCard: false,
-      photoPath: "",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page4/hidden-1.webp",
       photoCardPlace: "",
     },
     {
       text: "NASA's Cassini spacecraft used radar measurements of Titan's rotation to detect the ocean.",
       pose: "pose 2 - omfg",
       showPhotoCard: true,
-      photoPath: "./assets/img/page4/cassini-radar.jpeg", // Replace with the correct image path
-      photoCardPlace: "",
+      photoPath: "./assets/img/cassini-huygens.jpg", // Replace with the correct image path
+      photoCardPlace: "right",
     },
     {
       text: "The ocean is located about 100 kilometers beneath the moon's icy crust.",
       pose: "pose 3 - hello",
-      showPhotoCard: false,
-      photoPath: "",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page4/sub-surface.jpg",
       photoCardPlace: "",
     },
     {
       text: "The ocean is likely made up of liquid water mixed with ammonia and salts, which keeps it in a liquid state despite the frigid temperatures.",
-      pose: "pose 4 - warm welcome",
+      pose: "pose 6 - presentation flipped",
       showPhotoCard: true,
-      photoPath: "./assets/img/page4/liquid-ocean.jpeg", // Replace with the correct image path
-      photoCardPlace: "",
+      photoPath: "./assets/img/page4/inside-ocean.png", // Replace with the correct image path
+      photoCardPlace: "right",
     },
     {
       text: "Life as we know it might adapt to thrive in this hidden ocean, perhaps near hydrothermal vents that could provide the necessary heat and nutrients.",
-      pose: "pose 5 - sit sad",
+      pose: "pose 4 - warm welcome",
       showPhotoCard: true,
       photoPath: "./assets/img/page4/hydrothermal-vents.jpeg", // Replace with the correct image path
-      photoCardPlace: "",
+      photoCardPlace: "left",
     },
     {
       text: "These vents could be similar to those found deep in Earth's oceans, where life exists without sunlight.",
-      pose: "pose 6 - presentation flipped",
+      pose: "pose 5 - sit sad",
       showPhotoCard: false,
       photoPath: "",
       photoCardPlace: "",
@@ -69,11 +69,11 @@ const Page4 = () => {
       pose: "pose 1 - presentation",
       showPhotoCard: true,
       photoPath: "./assets/img/page4/chemosynthesis.jpeg", // Replace with the correct image path
-      photoCardPlace: "",
+      photoCardPlace: "left",
     },
     {
       text: "So, let's dive deep beneath Titan's surface and explore the possibilities of life in this alien ocean.",
-      pose: "pose 2 - omfg",
+      pose: "pose 4 - warm welcome",
       showPhotoCard: false,
       photoPath: "",
       photoCardPlace: "",
