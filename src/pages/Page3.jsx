@@ -33,42 +33,42 @@ const Page2 = () => {
       text: "Titan's surface is a fascinating and complex landscape, with vast plains, dunes, mountains, and lakes made of liquid methane and ethane.",
       pose: "pose 2 - omfg",
       showPhotoCard: true,
-      photoPath: "./assets/img/page3/surface-overview.jpeg", // Replace with the correct image path
+      photoPath: "./assets/img/page3/surface-1.jpg", // Replace with the correct image path
       photoCardPlace: "left",
     },
     {
       text: "The surface is primarily covered with a thick layer of organic-rich haze, giving Titan its characteristic orange color.",
       pose: "pose 3 - hello",
       showPhotoCard: true,
-      photoPath: "./assets/img/page3/organic-haze.jpeg", // Replace with the correct image path
+      photoPath: "./assets/img/page3/surface-color.jpg", // Replace with the correct image path
       photoCardPlace: "right",
     },
     {
       text: "Beneath the haze, Titan's landscape is carved by rivers and lakes of liquid hydrocarbons, particularly in the polar regions, making it the only body in our solar system other than Earth with stable liquid on its surface.",
       pose: "pose 4 - warm welcome",
       showPhotoCard: true,
-      photoPath: "./assets/img/page3/liquid-hydrocarbons.jpeg", // Replace with the correct image path
+      photoPath: "./assets/img/page3/surface-2.jpg", // Replace with the correct image path
       photoCardPlace: "left",
     },
     {
       text: "The surface is also marked by icy volcanoes, known as cryovolcanoes, which spew water and ammonia instead of molten rock.",
       pose: "pose 5 - sit sad",
-      showPhotoCard: false,
-      photoPath: "",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page3/surface-3.jpg",
       photoCardPlace: "",
     },
     {
       text: "Despite the frigid conditions, Titan's surface is constantly reshaped by erosion and the flow of liquid methane, creating a dynamic environment.",
       pose: "pose 6 - presentation flipped",
       showPhotoCard: true,
-      photoPath: "./assets/img/page3/erosion.jpeg", // Replace with the correct image path
+      photoPath: "./assets/img/page3/surface-4.jpg", // Replace with the correct image path
       photoCardPlace: "right",
     },
     {
       text: "In some regions, vast sand dunes stretch for hundreds of kilometers, composed of hydrocarbon grains that have settled from Titan's thick atmosphere.",
       pose: "pose 1 - presentation",
       showPhotoCard: true,
-      photoPath: "./assets/img/page3/sand-dunes.jpeg", // Replace with the correct image path
+      photoPath: "./assets/img/page3/surface-5.jpg", // Replace with the correct image path
       photoCardPlace: "left",
     },
     {

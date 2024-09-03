@@ -20,7 +20,7 @@ const PhotoCard = ({path,isShown,placement}) => {
     }, [isShown]);
   return (
     <div className={`photo-card p-5 ${isShown?"flex":"hidden"} absolute top-10 ${placement=="right"?"right-10":"left-10"} max-h-[280px] max-w-[380px] rounded-sm  bg-white bg-opacity-10 backdrop-blur-lg border-2 border-blue-500 floating-card`}>
-      <img src={path} alt="Photo" className='w-full h-full' />
+      <img src={path} alt="Photo" className='object-cover' />
     </div>
   )
 }
