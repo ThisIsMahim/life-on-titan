@@ -75,11 +75,11 @@ const Page2 = () => {
       text: "Titan's surface pressure, slightly higher than Earth's, allows liquid methane and ethane to form lakes and rivers similar to Earth's, but much colder.",
       pose: "pose 2 - omfg",
       showPhotoCard: true,
-      photoPath: "./assets/img/page3/methane-lakes.webp",
+      photoPath: "./assets/img/page2/methane-lakes.webp",
       photoCardPlace: "right",
     },
     // the following is to create another image on the same dialogue 
-    
+
   ];
   
   //  The speech and Dialougue handling commands
