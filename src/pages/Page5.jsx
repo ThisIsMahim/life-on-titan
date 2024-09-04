@@ -9,7 +9,7 @@ import Light from "./Shared/Light";
 import { useWindowSize } from "react-use";
 import RippleButton from "./Shared/RippleButton";
 import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
-import styled from 'styled-components';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
