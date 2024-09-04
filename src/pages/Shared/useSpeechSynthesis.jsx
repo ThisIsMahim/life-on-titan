@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useSpeechSynthesis() {
+function useSpeechSynthesis() {
   const [voices, setVoices] = useState([]);
   const [selectedVoice, setSelectedVoice] = useState(null);
 
@@ -40,3 +40,5 @@ export function useSpeechSynthesis() {
 
   return { speak, selectedVoice };
 }
+
+export default useSpeechSynthesis;

@@ -7,7 +7,7 @@ import RippleButton from "./Shared/RippleButton";
 import Robot from "./Shared/Robot";
 import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
-import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
+import useSpeechSynthesis from "./Shared/useSpeechSynthesis";
 import Background from "./Shared/Background";
 import Typewriter from 'typewriter-effect';
 
@@ -152,7 +152,7 @@ const WaterComponent = () => {
       textureWidth: 512,
       textureHeight: 512,
       waterNormals: new THREE.TextureLoader().load(
-        "https://threejs.org/examples/textures/waternormals.jpg",
+        "./assets/img/waternormals.jpg",
         (texture) => {
           texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         }

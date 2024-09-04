@@ -9,7 +9,7 @@ import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
 import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
-import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
+import useSpeechSynthesis from "./Shared/useSpeechSynthesis";
 import Typewriter from 'typewriter-effect';
 import PhotoCard from "./Shared/PhotoCard";
 

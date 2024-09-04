@@ -7,6 +7,7 @@ import Page2 from "../pages/Page2";
 import Page3 from "../pages/Page3";
 import Page4 from "../pages/Page4";
 import Page5 from "../pages/Page5";
+import QuizPage from "../pages/Quiz-Page/QuizPage";
 
 const router = createHashRouter([
   {
@@ -15,28 +16,32 @@ const router = createHashRouter([
     children: [
       {
         index: true,
-        path:"/",
+        path: "/",
         element: <Home />,
       },
       {
-        path: "page1", 
+        path: "page1",
         element: <Page1 />,
       },
       {
-        path: "page2", 
+        path: "page2",
         element: <Page2 />,
       },
       {
-        path: "page3", 
+        path: "page3",
         element: <Page3 />,
       },
       {
-        path: "page4", 
+        path: "page4",
         element: <Page4 />,
       },
       {
-        path: "page5", 
+        path: "page5",
         element: <Page5 />,
+      },
+      {
+        path: "quizPage",
+        element: <QuizPage />,
       },
     ],
   },

@@ -8,7 +8,6 @@ import Robot from "./Shared/Robot";
 import Light from "./Shared/Light";
 import { useWindowSize } from "react-use";
 import RippleButton from "./Shared/RippleButton";
-import { useSpeechSynthesis } from "./Shared/useSpeechSynthesis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -113,11 +112,6 @@ AnimatedSection.displayName = "AnimatedSection";
 
 // GlassDialogueBox component
 const GlassDialogueBox = () => {
-  const { speak } = useSpeechSynthesis();
-
-  useEffect(() => {
-    speak({ text: "Now let's learn about chemosynthesis" });
-  }, []);
 
   return (
     <motion.div
