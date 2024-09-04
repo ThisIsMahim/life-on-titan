@@ -27,6 +27,7 @@ const Page1 = () => {
     "On Titan, life doesn’t rely on the sun. Instead, it harnesses energy from chemical reactions deep below the icy surface.",
     "Together, we'll discover the unique ecosystems of Titan, where methane rivers flow and icy mountains touch the sky.",
     "Get ready for an adventure like no other, as we explore Titan’s mysteries and learn how life adapts in a world so different from our own.",
+    "Click on the Next button to continue the journey."
   ];
 
   const poses = [
@@ -37,6 +38,7 @@ const Page1 = () => {
     "pose 5 - sit sad",
     "pose 6 - presentation flipped",
     "pose 4 - warm welcome",
+    "pose 6 - presentation flipped",
   ];
 
   // The speech and dialogue handling commands
