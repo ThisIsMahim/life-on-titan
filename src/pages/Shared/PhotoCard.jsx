@@ -58,12 +58,13 @@ const PhotoCard = ({ path, isShown, placement }) => {
       gsap.to(card, {
         rotateX: 0,
         rotateY: 0,
-        scale: 1,
+        scale: 2,
         duration: 0.5,
         ease: 'power2.out',
       });
     };
 
+    // Apply event listeners to the whole card for animations
     card.addEventListener('mousemove', handleMouseMove);
     card.addEventListener('mouseenter', handleMouseEnter);
     card.addEventListener('mouseleave', handleMouseLeave);
@@ -82,7 +83,7 @@ const PhotoCard = ({ path, isShown, placement }) => {
         isShown ? 'flex' : 'hidden'
       } absolute top-10 ${
         placement === 'right' ? 'right-24' : 'left-24'
-      } max-h-[280px] max-w-[380px] rounded-sm bg-white bg-opacity-10 backdrop-blur-lg floating-card  z-20`}
+      } max-h-[280px] max-w-[380px] rounded-lg group bg-white bg-opacity-10 backdrop-blur-lg floating-card z-20`}
       style={{
         perspective: '1000px',
         transformStyle: 'preserve-3d',
@@ -92,12 +93,16 @@ const PhotoCard = ({ path, isShown, placement }) => {
         backgroundClip: 'padding-box, border-box',
       }}
     >
-      <div className=" overflow-hidden rounded-lg hover:border-blue-200 hover:border-2 transition-all duration-300 ease-out"style={{ transform: `translateZ(${isHovered ? '150px' : '0px'})` }}>
+      <div
+        className="overflow-hidden rounded-lg transition-all duration-300 ease-out"
+        style={{
+          transform: isHovered ? `translateZ(30px)` : 'translateZ(0px)',
+        }}
+      >
         <img
           src={path}
           alt="Photo"
-          className="object-cover transition-transform duration-300 ease-out"
-          
+          className="object-cover transition-transform duration-300 ease-out w-full h-full"
         />
       </div>
     </div>

@@ -1,0 +1,2 @@
+*add a login system to the page (maybe)
+*modify the quiz  page , when right keep changing background into a better titan, and when wrong astroid crashes and screen goes red and shaky

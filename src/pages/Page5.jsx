@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
@@ -11,7 +12,6 @@ import RippleButton from "./Shared/RippleButton";
 import useSpeechSynthesis from "./Shared/useSpeechSynthesis";
 
 gsap.registerPlugin(ScrollTrigger);
-
 
 const Scene = React.memo(({ robotPose, robotPosition, robotVisible }) => (
   <Canvas
@@ -70,69 +70,63 @@ const sectionsData = [
     bgImage: "/assets/img/chemo-scene-1.jpg",  // Corrected image path
   },
 ];
-
 const AnimatedSection = React.forwardRef(
   ({ title, content, points, bgImage, alignLeft }, ref) => (
     <section
       ref={ref}
       style={{
-        position: 'relative',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        position: "relative",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
       className={`section snap-center min-h-screen w-screen flex flex-col justify-center items-center text-white`}
     >
       <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${bgImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            filter: 'blur(4px)',
-            zIndex: -1,
-          }}
-        />
-
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          filter: "blur(4px)",
+          zIndex: -1,
+        }}
+      />
+      <motion.div
+        className={`max-w-2xl w-full mx-auto flex flex-col gap-4 z-10 ${
+          alignLeft ? "items-start text-left" : "items-end text-right"
+        }`}
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        <h2 className="text-3xl sm:text-5xl font-bold mb-6">{title}</h2>
+        <p className="font-poppins text-lg sm:text-xl mb-6 leading-relaxed">{content}</p>
         <motion.div
-          className={`max-w-2xl w-full mx-auto flex flex-col gap-4 z-10 ${
-            alignLeft ? "items-start text-left" : "items-end text-right"
-          }`}
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 sm:p-8 shadow-lg"
+          initial={{ scale: 0.5, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "backOut" }}
         >
-          <h2 className="text-3xl sm:text-5xl font-bold mb-6">{title}</h2>
-          <p className=" font-poppins text-lg sm:text-xl mb-6 leading-relaxed">{content}</p>
-          <motion.div
-            className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 sm:p-8 shadow-lg"
-            initial={{ scale: 0.5, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "backOut" }}
-          >
-            <h3 className="text-2xl sm:text-3xl font-semibold mb-4">
-              Key Points:
-            </h3>
-            <ul className="font-poppins list-disc list-inside space-y-2 text-base sm:text-xl">
-              {points.map((point, index) => (
-                <li key={index}>{point}</li>
-              ))}
-            </ul>
-          </motion.div>
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-4">Key Points:</h3>
+          <ul className="font-poppins list-disc list-inside space-y-2 text-base sm:text-xl">
+            {points.map((point, index) => (
+              <li key={index}>{point}</li>
+            ))}
+          </ul>
         </motion.div>
+      </motion.div>
     </section>
   )
 );
 AnimatedSection.displayName = "AnimatedSection";
 
 
-
 // GlassDialogueBox component
 const GlassDialogueBox = () => {
-
   const { speak } = useSpeechSynthesis();
 
   useEffect(() => {
@@ -141,20 +135,19 @@ const GlassDialogueBox = () => {
 
   return (
     <motion.div
-    style={{
-      backgroundImage: "url('/assets/img/chemo-scene-3.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      zIndex: -1,
-    }}
-
-      className="transform -translate-x-1/2 h-screen w-screen sm:p-6 shadow-lg z-0 "
+      style={{
+        backgroundImage: "url('/assets/img/chemo-scene-3.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        zIndex: -1,
+      }}
+      className="transform -translate-x-1/2 h-screen w-screen sm:p-6 shadow-lg z-0"
       initial={{ opacity: 0, y: -30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
     >
-      <div className=" bg-white bg-opacity-20 rounded-xl p-8">
+      <div className="bg-white bg-opacity-20 rounded-xl p-8">
         <p className="text-xl sm:text-4xl font-semibold text-center font-lato text-white">
           Now let's learn about chemosynthesis
         </p>
@@ -172,35 +165,39 @@ export default function Page5() {
   const { width } = useWindowSize();
   const isMobile = width <= 640;
 
+  // Scroll event listener for horizontal scrolling
   useEffect(() => {
     const container = containerRef.current;
-  
     const handleWheel = (event) => {
       if (event.deltaY !== 0) {
-        container.scrollLeft += event.deltaY*.2;
+        container.scrollLeft += event.deltaY * 0.2;
         event.preventDefault(); // Prevent default vertical scroll
       }
     };
-  
-    container.addEventListener('wheel', handleWheel);
-  
+
+    container.addEventListener("wheel", handleWheel);
+
     return () => {
-      container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener("wheel", handleWheel);
     };
   }, []);
-  
+
+  // ScrollTrigger effect to update robot pose on section enter/leave
   useEffect(() => {
-    ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => {
-        console.log(`Scroll progress: ${self.progress}`);
-      },
+    sectionsRef.current.forEach((section, index) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top center", // When the section enters the viewport
+        end: "bottom center", // When the section leaves the viewport
+        onEnter: () => {
+          updateRobotState(index);
+        },
+        onLeaveBack: () => {
+          updateRobotState(index);
+        },
+      });
     });
   }, []);
-  
-  
 
   const updateRobotState = (index) => {
     const poseOptions = [
@@ -214,109 +211,30 @@ export default function Page5() {
 
   return (
     <div ref={containerRef} className="overflow-x-scroll overflow-y-hidden w-full h-screen">
-  
-  <main className="flex flex-row w-[400vw] min-h-screen snap-x">
-    {/* Add GlassDialogueBox component */}
-    <GlassDialogueBox />
-    <Scene
-      robotPose={robotPose}
-      robotPosition={robotPosition}
-      robotVisible={robotVisible}
-    />
-    {sectionsData.map((section, index) => (
-      <AnimatedSection
-        key={index}
-        ref={(el) => (sectionsRef.current[index] = el)}
-        title={section.title}
-        content={section.content}
-        points={section.points}
-        bgImage={section.bgImage}
-        alignLeft={1}
-        className="w-full" // Ensure sections are full-width
-      />
-      
-    ))}
-
-    {/* Carousel Section */}
-    {/* <section
-      ref={(el) => (sectionsRef.current[sectionsData.length] = el)}
-      className="min-h-screen w-screen flex flex-col justify-center items-center bg-blue-400 text-white"
-    >
-      <div className="max-w-2xl w-full mx-auto flex flex-col z-10">
-        <h2 className="text-3xl sm:text-5xl font-bold mb-6">
-          Organisms in Chemosynthetic Environments
-        </h2>
-        <div className="w-full">
-          <div className="carousel w-full">
-            <div id="slide1" className="carousel-item relative w-full">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
-                className="w-full"
-                alt="Organism 1"
-              />
-              <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                <a href="#slide4" className="btn btn-circle">
-                  ❮
-                </a>
-                <a href="#slide2" className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
-            </div>
-            <div id="slide2" className="carousel-item relative w-full">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.jpg"
-                className="w-full"
-                alt="Organism 2"
-              />
-              <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                <a href="#slide1" className="btn btn-circle">
-                  ❮
-                </a>
-                <a href="#slide3" className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
-            </div>
-            <div id="slide3" className="carousel-item relative w-full">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.jpg"
-                className="w-full"
-                alt="Organism 3"
-              />
-              <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                <a href="#slide2" className="btn btn-circle">
-                  ❮
-                </a>
-                <a href="#slide4" className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
-            </div>
-            <div id="slide4" className="carousel-item relative w-full">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.jpg"
-                className="w-full"
-                alt="Organism 4"
-              />
-              <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                <a href="#slide3" className="btn btn-circle">
-                  ❮
-                </a>
-                <a href="#slide1" className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+      <main className="flex flex-row w-[400vw] min-h-screen snap-x">
+        <GlassDialogueBox />
+        <Scene
+          robotPose={robotPose}
+          robotPosition={robotPosition}
+          robotVisible={robotVisible}
+        />
+        {sectionsData.map((section, index) => (
+          <AnimatedSection
+            key={index}
+            ref={(el) => (sectionsRef.current[index] = el)}
+            title={section.title}
+            content={section.content}
+            points={section.points}
+            bgImage={section.bgImage}
+            alignLeft={1}
+            className="w-full"
+          />
+        ))}
+      </main>
+      <div className="fixed w-full bottom-0 flex justify-between px-10 z-0">
+        <RippleButton navigateTo="/page4">Previous</RippleButton>
+        <RippleButton navigateTo="/page6">Next</RippleButton>
       </div>
-    </section> */}
-  </main>
-  <div className="fixed w-full bottom-0 flex justify-between px-10 z-0">
-    <RippleButton navigateTo="/page4">Previous</RippleButton>
-    <RippleButton navigateTo="/quizPage">Next</RippleButton>
-  </div>
-</div>
+    </div>
   );
 }
