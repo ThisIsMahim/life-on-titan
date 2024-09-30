@@ -32,14 +32,14 @@ const PhotoCard = ({ path, isShown, placement }) => {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const tiltX = (y - centerY) / 15; // Adjust sensitivity
-      const tiltY = (centerX - x) / 15;
+      const tiltX = (y - centerY) / 10; // Adjust sensitivity
+      const tiltY = (centerX - x) / 10;
 
       gsap.to(card, {
         rotateX: tiltX,
         rotateY: tiltY,
         scale: 1.05,
-        duration: 0.5,
+        duration: 0.4,
         ease: 'power2.out',
       });
     };
@@ -48,7 +48,7 @@ const PhotoCard = ({ path, isShown, placement }) => {
       setIsHovered(true);
       gsap.to(card, {
         scale: 1.05,
-        duration: 0.5,
+        duration: 0.4,
         ease: 'power2.out',
       });
     };
@@ -58,8 +58,8 @@ const PhotoCard = ({ path, isShown, placement }) => {
       gsap.to(card, {
         rotateX: 0,
         rotateY: 0,
-        scale: 2,
-        duration: 0.5,
+        scale: 1, // Reset to default scale
+        duration: 0.6, // Smooth out the transition
         ease: 'power2.out',
       });
     };
@@ -68,20 +68,18 @@ const PhotoCard = ({ path, isShown, placement }) => {
     card.addEventListener('mousemove', handleMouseMove);
     card.addEventListener('mouseenter', handleMouseEnter);
     card.addEventListener('mouseleave', handleMouseLeave);
-
+    console.log(isHovered)
     return () => {
       card.removeEventListener('mousemove', handleMouseMove);
       card.removeEventListener('mouseenter', handleMouseEnter);
       card.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [isHovered]);
 
   return (
     <div
       ref={cardRef}
-      className={`photo-card p-5 ${
-        isShown ? 'flex' : 'hidden'
-      } absolute top-10 ${
+      className={`photo-card p-5 ${isShown ? 'flex' : 'hidden'} absolute top-10 ${
         placement === 'right' ? 'right-24' : 'left-24'
       } max-h-[280px] max-w-[380px] rounded-lg group bg-white bg-opacity-10 backdrop-blur-lg floating-card z-20`}
       style={{
@@ -96,7 +94,7 @@ const PhotoCard = ({ path, isShown, placement }) => {
       <div
         className="overflow-hidden rounded-lg transition-all duration-300 ease-out"
         style={{
-          transform: isHovered ? `translateZ(30px)` : 'translateZ(0px)',
+          transform: isHovered ? 'translateZ(20px)' : 'translateZ(0px)',
         }}
       >
         <img

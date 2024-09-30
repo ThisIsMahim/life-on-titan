@@ -8,7 +8,6 @@ import Robot from "./Shared/Robot";
 import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
 import Background from "./Shared/Background";
-// import { OrbitControls } from "@react-three/drei";
 import useSpeechSynthesis from "./Shared/useSpeechSynthesis";
 import Typewriter from 'typewriter-effect';
 import PhotoCard from "./Shared/PhotoCard";
@@ -60,8 +59,8 @@ const Page2 = () => {
     {
       text: "Titan also experiences a methane cycle similar to Earth's water cycle, with methane clouds, rain, and even seasonal weather patterns.",
       pose: "pose 6 - presentation flipped",
-      showPhotoCard: false,
-      photoPath: "",
+      showPhotoCard: true,
+      photoPath: "./assets/img/page2/Methane-ethane-cycle.jpg",
       photoCardPlace: "right",
     },
   ];

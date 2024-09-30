@@ -9,8 +9,9 @@ import Light from "./Shared/Light";
 import Background from "./Shared/Background";
 // import { OrbitControls } from "@react-three/drei";
 import useSpeechSynthesis from "./Shared/useSpeechSynthesis";
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
 import PhotoCard from "./Shared/PhotoCard";
+import BackgroundVDO from "./Shared/BackgroundVDO";
 
 const TestPage = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
@@ -19,26 +20,24 @@ const TestPage = () => {
   const [robotPose, setRobotPose] = useState("pose 1 - presentation");
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
-  const [photoCardShow,setPhotoCardShow] = useState(false);
+  const [photoCardShow, setPhotoCardShow] = useState(false);
   const dialogues = [
     {
-      text: "",
-      pose: "pose 2 - hello",
-      showPhotoCard: false,
-      photoPath: "",
-      photoCardPlace: "",
+      text: "Hi, I’m Chiko!",
+      pose: "pose 3 - hello",
     },
+
     {
-      text: "I believe in possibilities! That’s why we’re not just looking to Earth—we’re exploring new frontiers. Let’s see how Titan could hold the key to our future!!",
+      text: "I'll be your guide in this wonderful journey exploring an ocean world where life exists, without sunlight!",
       pose: "pose 4 - warm welcome",
-      showPhotoCard: false,
-      photoPath: "",
-      photoCardPlace: "",
+    },
+    
+    {
+      text: "Let's Explore why and How this journey matter!!",
+      pose: "pose 1 - presentation",
     },
 
   ];
-  
-
 
   //  The speech and Dialougue handling commands
   useEffect(() => {
@@ -52,25 +51,24 @@ const TestPage = () => {
       setShowContinueText(false);
       setDialogueIndex((prevIndex) => {
         const newIndex = (prevIndex + 1) % dialogues.length;
-  
+
         // Update robot pose
         setRobotPose(dialogues[newIndex].pose);
-  
+
         // Speak the new dialogue
         speak(dialogues[newIndex].text);
-  
+
         // Check if PhotoCard should be shown
         if (dialogues[newIndex].showPhotoCard) {
           setPhotoCardShow(true);
         } else {
           setPhotoCardShow(false);
         }
-  
+
         return newIndex;
       });
     }, 500);
   };
-  
 
   const handleExit = () => {
     setAnimateOut(true);
@@ -79,12 +77,13 @@ const TestPage = () => {
   return (
     <div
       className="relative"
-      style={{ width: "100vw", height: "100vh", position: "relative" }}
+      style={{ width: "100vw", height: "100vh", position: "relative" }} 
+      onClick={handleDialogueClick}
     >
       <Canvas>
         <Suspense fallback={null}>
           {/* // Background component for setting the background texture with a dark overlay */}
-          <Background texturePath="/assets/img/testPage-bg-1.jpg" />
+          <BackgroundVDO videoPath="./assets/videos/bg-vdo-1.mp4" />
           <Robot
             animateIn={animateRobot}
             animateOut={animateOut}
@@ -96,26 +95,26 @@ const TestPage = () => {
       </Canvas>
       {/* Dialogue Box */}
       <div
-        className="absolute lg:bottom-36 bottom-32 flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer"
+        className="absolute lg:bottom-36 bottom-32 justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer flex"
         onClick={handleDialogueClick}
       >
         <div className="glass-dialogue-box h-full flex items-center flex-col">
           <Typewriter
-             key={dialogueIndex} 
+            key={dialogueIndex}
             onInit={(typewriter) => {
               typewriter
                 .typeString(dialogues[dialogueIndex].text)
                 .start()
                 .callFunction(() => {
                   setShowContinueText(true);
-                })
-            }}   
+                });
+            }}
             options={{
               autoStart: true,
               delay: 50,
-              cursor: '',
+              cursor: "",
               deleteSpeed: Infinity,
-            }}       
+            }}
           />
 
           {/* Blinking Continue Text */}
@@ -126,7 +125,7 @@ const TestPage = () => {
           )}
         </div>
       </div>
-      <div className="fixed w-full bottom-0 flex justify-between px-10">
+      <div className="fixed w-full bottom-0 flex justify-between px-10 hidden">
         <RippleButton navigateTo="/page5">Previous</RippleButton>
         <RippleButton navigateTo="/page6" onClick={handleExit}>
           Next

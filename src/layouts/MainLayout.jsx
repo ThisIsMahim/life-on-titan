@@ -5,7 +5,7 @@ const MainLayout = () => {
   const location = useLocation();
   
   // Define routes where you do NOT want the music to play (e.g., Home)
-  const noMusicRoutes = ['/', '/Home'];
+  const noMusicRoutes = ['/', '/Home','/testPage'];
   
   // Check if the current route is one of the routes where music should not play
   const showMusic = !noMusicRoutes.includes(location.pathname);

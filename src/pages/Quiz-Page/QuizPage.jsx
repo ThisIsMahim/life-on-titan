@@ -3,6 +3,7 @@ import { useState } from "react";
 import Robot from "../Shared/Robot";
 import Light from "../Shared/Light";
 import Background from "../Shared/Background";
+import BackgroundVDO from "../Shared/BackgroundVDO";
 import CameraControl from "../Shared/CameraControl";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
@@ -129,7 +130,7 @@ const QuizPage = () => {
     <div className="relative" style={{ width: "100vw", height: "100vh" }}>
       <Canvas>
         <Suspense fallback={null}>
-          <Background texturePath="/assets/img/titan-scenery-4.jpg" />
+          <BackgroundVDO videoPath="./assets/videos/bg-vdo-2.mp4"/>
           <Robot
             pose={
               isCorrect === null
