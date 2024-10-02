@@ -12,6 +12,7 @@ import useSpeechSynthesis from "./Shared/useSpeechSynthesis";
 import Typewriter from "typewriter-effect";
 import PhotoCard from "./Shared/PhotoCard";
 import BackgroundVDO from "./Shared/BackgroundVDO";
+import Titan from "./Shared/Titan";
 
 const TestPage = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
@@ -74,64 +75,67 @@ const TestPage = () => {
     setAnimateOut(true);
   };
 
-  return (
-    <div
-      className="relative"
-      style={{ width: "100vw", height: "100vh", position: "relative" }} 
-      onClick={handleDialogueClick}
-    >
-      <Canvas>
-        <Suspense fallback={null}>
-          {/* // Background component for setting the background texture with a dark overlay */}
-          <BackgroundVDO videoPath="./assets/videos/bg-vdo-1.mp4" />
-          <Robot
-            animateIn={animateRobot}
-            animateOut={animateOut}
-            pose={robotPose}
-          />
-          <Light />
-          <CameraControl />
-        </Suspense>
-      </Canvas>
-      {/* Dialogue Box */}
-      <div
-        className="absolute lg:bottom-36 bottom-32 justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer flex"
-        onClick={handleDialogueClick}
-      >
-        <div className="glass-dialogue-box h-full flex items-center flex-col">
-          <Typewriter
-            key={dialogueIndex}
-            onInit={(typewriter) => {
-              typewriter
-                .typeString(dialogues[dialogueIndex].text)
-                .start()
-                .callFunction(() => {
-                  setShowContinueText(true);
-                });
-            }}
-            options={{
-              autoStart: true,
-              delay: 50,
-              cursor: "",
-              deleteSpeed: Infinity,
-            }}
-          />
+   return (
+  //   <div
+  //     className="relative"
+  //     style={{ width: "100vw", height: "100vh", position: "relative" }} 
+  //     onClick={handleDialogueClick}
+  //   >
+  //     <Canvas>
+  //       <Suspense fallback={null}>
+  //         {/* // Background component for setting the background texture with a dark overlay */}
+  //         <BackgroundVDO videoPath="./assets/videos/bg-vdo-1.mp4" />
+  //         <Robot
+  //           animateIn={animateRobot}
+  //           animateOut={animateOut}
+  //           pose={robotPose}
+  //         />
+  //         <Light />
+  //         <CameraControl />
+  //       </Suspense>
+  //     </Canvas>
+  //     {/* Dialogue Box */}
+  //     <div
+  //       className="absolute lg:bottom-36 bottom-32 justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer flex"
+  //       onClick={handleDialogueClick}
+  //     >
+  //       <div className="glass-dialogue-box h-full flex items-center flex-col">
+  //         <Typewriter
+  //           key={dialogueIndex}
+  //           onInit={(typewriter) => {
+  //             typewriter
+  //               .typeString(dialogues[dialogueIndex].text)
+  //               .start()
+  //               .callFunction(() => {
+  //                 setShowContinueText(true);
+  //               });
+  //           }}
+  //           options={{
+  //             autoStart: true,
+  //             delay: 50,
+  //             cursor: "",
+  //             deleteSpeed: Infinity,
+  //           }}
+  //         />
 
-          {/* Blinking Continue Text */}
-          {showContinueText && (
-            <h2 className="mt-4 text-[16px] text-center font-lato text-white animate-pulse">
-              Click to continue...
-            </h2>
-          )}
-        </div>
-      </div>
-      <div className="fixed w-full bottom-0 flex justify-between px-10 hidden">
-        <RippleButton navigateTo="/page5">Previous</RippleButton>
-        <RippleButton navigateTo="/page6" onClick={handleExit}>
-          Next
-        </RippleButton>
-      </div>
-    </div>
+  //         {/* Blinking Continue Text */}
+  //         {showContinueText && (
+  //           <h2 className="mt-4 text-[16px] text-center font-lato text-white animate-pulse">
+  //             Click to continue...
+  //           </h2>
+  //         )}
+  //       </div>
+  //     </div>
+  //     <div className="fixed w-full bottom-0 flex justify-between px-10 hidden">
+  //       <RippleButton navigateTo="/page5">Previous</RippleButton>
+  //       <RippleButton navigateTo="/page6" onClick={handleExit}>
+  //         Next
+  //       </RippleButton>
+  //     </div>
+  //   </div>
+  <>
+  <Titan/>
+  </>
   );
 };
 

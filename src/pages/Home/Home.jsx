@@ -89,7 +89,7 @@ const Home = () => {
 
       {/* title */}
       <div className="bg-transparent fixed z-10 top-5">
-        <h1 className="font-jersey text-white text-6xl shining-title">Life on Titan</h1>
+        <h1 className="font-jersey text-white text-8xl shining-title">Life on Titan</h1>
       </div>
 
       {/* Show after Interaction */}
@@ -104,12 +104,12 @@ const Home = () => {
       {/* Team Info Card */}
       <div className="hidden z-10 shining-border font-lato text-center team-card-container lg:block fixed top-1/2 left-5 transform -translate-y-1/2 cursor-pointer">
         <div className="glassmorphism-card floating-card">
-          <h2 className="text-3xl team-title font-vt text-white">ASL-ASTRO VOYAGERS</h2>
+          <h2 className="text-3xl team-title font-vt text-white">ASL-ASTROSYNTH</h2>
           <div className="mt-3 2xl:mt-6">
             <p className="mb-2 font-vt text-left  text-3xl 2xl:mb-4 2xl:text-4xl">1.Mahim</p>
             <p className="mb-2 font-vt text-center  text-3xl 2xl:mb-4 2xl:text-4xl">2.Shazid</p>
             <p className="mb-2 font-vt text-right text-3xl 2xl:mb-4 2xl:text-4xl">3.Tasnia</p>
-            <p className="mb-2 font-vt text-center text-3xl 2xl:mb-4 2xl:text-4xl">4.Shafi</p>
+            <p className="mb-2 font-vt text-center text-3xl 2xl:mb-4 2xl:text-4xl">4.Sadh</p>
             <p className="mb-2 font-vt text-left  text-3xl 2xl:mb-4 2xl:text-4xl">5.Ajoy</p>
           </div>
         </div>

@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef, useState,useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Canvas } from "@react-three/fiber";
@@ -151,7 +152,6 @@ const GlassDialogueBox = ({ onContinue }) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        
       }}
       className="transform -translate-x-1/2 h-screen w-screen sm:p-6 shadow-lg z-0 snap-start relative flex flex-col justify-center items-center"
       initial={{ opacity: 0, y: -30 }}
@@ -161,7 +161,7 @@ const GlassDialogueBox = ({ onContinue }) => {
       <div className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg border rounded-xl p-8 max-w-2xl w-full">
         <div className="">
           <h1 className="text-3xl sm:text-5xl font-bold text-center font-sans text-white mb-6">
-            Now let's learn about chemosynthesis
+            Now let&#39;s learn about chemosynthesis
           </h1>
           <p className="text-lg sm:text-xl text-center text-white mb-8">
             Embark on a journey to discover the fascinating world of
@@ -172,6 +172,7 @@ const GlassDialogueBox = ({ onContinue }) => {
         <Button
           onClick={onContinue}
           className="w-full py-3 text-lg font-semibold"
+          variant = "circular"
         >
           Start Learning
         </Button>
@@ -192,8 +193,8 @@ const FloatingActionButton = ({ onClick, icon, label }) => (
 );
 
 export default function Page5() {
-  const [robotPose, setRobotPose] = useState("pose 4 - warm welcome");
-  const [robotVisible, setRobotVisible] = useState(true);
+  const robotPose = "pose 4 - warm welcome";
+  const robotVisible =true;
   const [currentSection, setCurrentSection] = useState(0);
   const [showGlossary, setShowGlossary] = useState(false);
   const containerRef = useRef(null);
@@ -209,7 +210,7 @@ export default function Page5() {
 
     const handleWheel = (event) => {
       event.preventDefault();
-      container.scrollLeft += event.deltaY;
+      container.scrollLeft += event.deltaY * 5;
     };
 
     const handleTouchStart = (event) => {
@@ -259,11 +260,11 @@ export default function Page5() {
         scrub: true,
         onEnter: () => {
           setCurrentSection(index);
-          setRobotPose(`pose ${index + 1}`);
+          console.log("entering section " + section);
         },
         onEnterBack: () => {
           setCurrentSection(index);
-          setRobotPose(`pose ${index + 1}`);
+          console.log("leaving section " + section);
         },
       });
     });
@@ -317,10 +318,10 @@ export default function Page5() {
       style={{ scrollSnapType: "x mandatory" }}
     >
       <main className="flex flex-row w-[400vw] min-h-screen snap-x snap-mandatory relative">
-        <GlassDialogueBox  onContinue={handleContinue} />
+        <GlassDialogueBox onContinue={handleContinue} />
         <Scene
           robotPose={robotPose}
-          robotPosition={isMobile ? [0, -1, 0] : [0, 0, 0]}
+          robotPosition={isMobile ? [0, 0, 1] : [0, 0, 0]}
           robotVisible={robotVisible}
         />
 

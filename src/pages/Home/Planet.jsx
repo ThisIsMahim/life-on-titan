@@ -110,7 +110,6 @@ const Planet = () => {
     };
 
     const raycaster = new THREE.Raycaster();
-    const popUpEl = document.querySelector("#popUpEl");
     // Animate function
     function animate() {
       requestAnimationFrame(animate);

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import audioOn from "/assets/img/volume.png";
+import audioOff from "/assets/img/mute.png";
 const BackgroundMusic = () => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -9,9 +11,12 @@ const BackgroundMusic = () => {
       try {
         await audioRef.current.play();
         setIsPlaying(true);
-        gsap.to(audioRef.current, { volume: .3, duration: 2 });
+        gsap.to(audioRef.current, { volume: 0.3, duration: 2 });
       } catch (error) {
-        console.log("Autoplay was prevented. User interaction is required.", error);
+        console.log(
+          "Autoplay was prevented. User interaction is required.",
+          error
+        );
         setIsPlaying(false);
       }
     };
@@ -26,15 +31,29 @@ const BackgroundMusic = () => {
     }
     setIsPlaying(!isPlaying);
   };
-  
+
   return (
     <div>
       <audio ref={audioRef} loop>
         <source src="./assets/sounds/calm-background.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
-      <button className={`absolute top-2 z-10 h-10 w-max p-2 ${isPlaying? "bg-green-300":"bg-red-300"} bg-white bg-opacity-10 rounded-lg right-2`} onClick={togglePlayPause}>
-        {isPlaying ? "Pause" : "Play"} Music
+      <img
+        className={`absolute top-2 z-10 h-10 w-max right-2`}
+        onClick={togglePlayPause}
+      />
+      <button
+        onClick={togglePlayPause}
+        className="fixed top-5 right-10 hidden sm:block opacity-40 hover:opacity-70 transition-all z-20 bg-opacity-50 backdrop-blur-sm p-2 rounded-full"
+        aria-label={
+          isPlaying ? "Unmute background music" : "Mute background music"
+        }
+      >
+        {isPlaying ? (
+          <img src={audioOff} className="w-10 h-10" alt="audio off" />
+        ) : (
+          <img src={audioOn} className="w-10 h-10" alt="audio on" />
+        )}
       </button>
     </div>
   );

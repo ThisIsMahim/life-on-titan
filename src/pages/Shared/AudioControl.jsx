@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 import audioOn from "/assets/img/volume.png";
 import audioOff from "/assets/img/mute.png";
 const AudioControl = ({ audioRef }) => {
