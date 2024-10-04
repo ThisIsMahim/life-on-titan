@@ -9,7 +9,7 @@ import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
 import Background from "./Shared/Background";
 import useSpeechSynthesis from "./Shared/useSpeechSynthesis";
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
 import PhotoCard from "./Shared/PhotoCard";
 
 const Page2 = () => {
@@ -19,7 +19,8 @@ const Page2 = () => {
   const [robotPose, setRobotPose] = useState("pose 1 - presentation");
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
-  const [photoCardShow,setPhotoCardShow] = useState(false);
+  const [photoCardShow, setPhotoCardShow] = useState(false);
+  const [showNavButton, setShowNavButton] = useState(false);
   const dialogues = [
     {
       text: "Now, let's talk about Titan's atmosphere.",
@@ -64,8 +65,6 @@ const Page2 = () => {
       photoCardPlace: "right",
     },
   ];
-  
-
 
   //  The speech and Dialougue handling commands
   useEffect(() => {
@@ -79,25 +78,27 @@ const Page2 = () => {
       setShowContinueText(false);
       setDialogueIndex((prevIndex) => {
         const newIndex = (prevIndex + 1) % dialogues.length;
-  
+
         // Update robot pose
         setRobotPose(dialogues[newIndex].pose);
-  
+
         // Speak the new dialogue
         speak(dialogues[newIndex].text);
-  
+
         // Check if PhotoCard should be shown
         if (dialogues[newIndex].showPhotoCard) {
           setPhotoCardShow(true);
         } else {
           setPhotoCardShow(false);
         }
-  
+        if (newIndex == dialogues.length - 1) {
+          setShowNavButton(true);
+        }
+
         return newIndex;
       });
     }, 500);
   };
-  
 
   const handleExit = () => {
     setAnimateOut(true);
@@ -121,28 +122,36 @@ const Page2 = () => {
           <CameraControl />
         </Suspense>
       </Canvas>
+      {/* Heading */}
+      <div className="absolute top-5 w-full flex justify-center">
+        <h1 className="text-white text-5xl font-vt font-bold tracking-wide">
+          Titan&#39;s Atmosphere
+        </h1>
+      </div>
       {/* Dialogue Box */}
       <div
-        className="absolute lg:bottom-36 bottom-32 flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer"
+        className={`absolute lg:bottom-36 ${
+          showNavButton ? "bottom-32" : "bottom-4 lg:bottom-16"
+        } flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer`}
         onClick={handleDialogueClick}
       >
-        <div className="glass-dialogue-box h-full flex items-center flex-col">
+        <div className="glass-dialogue-box h-full font-tr flex items-center flex-col">
           <Typewriter
-             key={dialogueIndex} 
+            key={dialogueIndex}
             onInit={(typewriter) => {
               typewriter
                 .typeString(dialogues[dialogueIndex].text)
                 .start()
                 .callFunction(() => {
                   setShowContinueText(true);
-                })
-            }}   
+                });
+            }}
             options={{
               autoStart: true,
               delay: 50,
-              cursor: '',
+              cursor: "..",
               deleteSpeed: Infinity,
-            }}       
+            }}
           />
 
           {/* Blinking Continue Text */}
@@ -153,13 +162,19 @@ const Page2 = () => {
           )}
         </div>
       </div>
-      <PhotoCard path={dialogues[dialogueIndex].photoPath} isShown={photoCardShow} placement={dialogues[dialogueIndex].photoCardPlace} />
-      <div className="fixed w-full bottom-0 flex justify-between px-10">
-        <RippleButton navigateTo="/page1">Previous</RippleButton>
-        <RippleButton navigateTo="/page3" onClick={handleExit}>
-          Next
-        </RippleButton>
-      </div>
+      <PhotoCard
+        path={dialogues[dialogueIndex].photoPath}
+        isShown={photoCardShow}
+        placement={dialogues[dialogueIndex].photoCardPlace}
+      />
+      {showNavButton && (
+        <div className="fixed w-full bottom-0 flex justify-between px-10">
+          <RippleButton navigateTo="/page1">Previous</RippleButton>
+          <RippleButton navigateTo="/page3" onClick={handleExit}>
+            Next
+          </RippleButton>
+        </div>
+      )}
     </div>
   );
 };

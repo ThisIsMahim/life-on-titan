@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import RippleButton from '../Shared/RippleButton';
 
 /* eslint-disable react/prop-types */
 const FinalScore = ({ score, totalQuestions }) => {
@@ -19,9 +18,12 @@ const FinalScore = ({ score, totalQuestions }) => {
         <h1 className="text-6xl lg:text-8xl font-extrabold text-white mb-8">
           SCORE: {score}/{totalQuestions}
         </h1>
+        {/* this below para should be dynamic, giving well done for score 7 or above and vice versa */}
+        <p className="text-lg sm:text-xl mb-8 font-lato font-bold text-gray-300 leading-relaxed">
+          You&#39;ve completed the quiz! Thank you for taking the time to explore Life on Titan.
+        </p>
         <div className="flex justify-center space-x-6">
-         <RippleButton navigateTo={"/quizPage"}>Restart</RippleButton>
-        </div>
+        <button className='btn bg-[#3a7dbf] hover:bg-[#417ae4] text-white hover:border-yellow-400 font-bold font-lato text-lg rounded-full' onClick={() => window.location.reload(false)}>Restart Quiz</button>        </div>
       </motion.div>
     </motion.div>
   );

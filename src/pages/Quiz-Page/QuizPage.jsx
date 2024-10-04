@@ -167,8 +167,8 @@ const QuizPage = () => {
       {showFeedback && <FeedbackOverlay isCorrect={isCorrect} />}
       {isCorrect && showFeedback && <ConfettiEffect />}
       <div className="fixed w-full bottom-0 flex justify-between px-10">
-        <RippleButton navigateTo="/">Previous</RippleButton>
-        <RippleButton navigateTo="/last" onClick={handleExit}>
+        <RippleButton navigateTo="/page7">Previous</RippleButton>
+        <RippleButton navigateTo="/creditPage" onClick={handleExit}>
           Next
         </RippleButton>
       </div>

@@ -5,6 +5,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'Type-machine';
+  src: url('./assets/fonts/Type-Machine.ttf');
+}
+.font-tr{
+  font-family: "Type-machine";
+}
 .font-jersey {
     font-family: "Jersey 10", sans-serif;
   }

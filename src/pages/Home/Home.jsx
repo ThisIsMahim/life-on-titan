@@ -89,7 +89,7 @@ const Home = () => {
 
       {/* title */}
       <div className="bg-transparent fixed z-10 top-5">
-        <h1 className="font-jersey text-white text-8xl shining-title">Life on Titan</h1>
+        <h1 className="font-jersey text-white text-center text-6xl lg:text-7xl shining-title">Life on Titan</h1>
       </div>
 
       {/* Show after Interaction */}
@@ -97,7 +97,7 @@ const Home = () => {
         {/* mute button */}
         <AudioControl audioRef={audioRef}/>
 
-      <div className="fixed z-10 text-center bottom-5 bottom-text">
+      <div className="fixed z-10 text-center bottom-7 bottom-text">
         <h2 className="font-vt text-white text-3xl ">Click on the planet continue exploring</h2>
       </div>
       

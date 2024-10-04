@@ -13,11 +13,19 @@ import atmosphereFragmentShader from "../../shaders/atmosphereFragment.glsl";
 import "../../style/canvas.css";
 import bumpMapTexture from '/assets/img/titan-black-and-white.jpg';
 import planetTexture from '/assets/img/titan.jpg';
+import cryoVolcanoTexture from '/assets/img/cryo-volcano.jpg';
+import cryoVolcanoNormalMap from '/assets/img/cryo-volcano-normal.jpg';
+import hydrothermalVentTexture from '/assets/img/hydrothermal-vent.jpg';
+import hydrothermalVentNormalMap from '/assets/img/hydrothermal-vent-normal.jpg';
+import mineralRegionTexture from '/assets/img/mineral-region.jpg';
+import mineralRegionNormalMap from '/assets/img/mineral-region-normal.jpg';
+import mineralRegionRoughnessMap from '/assets/img/mineral-region-roughness.jpg';
 
 extend(THREE);
 
 const Sphere = () => {
   const meshRef = useRef();
+  // eslint-disable-next-line no-unused-vars
   const [hovered, setHovered] = useState(null);
 
   const texture = useLoader(THREE.TextureLoader, planetTexture);
@@ -70,6 +78,14 @@ const Feature = ({ feature, setHovered }) => {
   const meshRef = useRef();
   const [isHovered, setIsHovered] = useState(false);
 
+  const cryoVolcanoTextureMap = useLoader(THREE.TextureLoader, cryoVolcanoTexture);
+  const cryoVolcanoNormal = useLoader(THREE.TextureLoader, cryoVolcanoNormalMap);
+  const hydrothermalVentTextureMap = useLoader(THREE.TextureLoader, hydrothermalVentTexture);
+  const hydrothermalVentNormal = useLoader(THREE.TextureLoader, hydrothermalVentNormalMap);
+  const mineralRegionTextureMap = useLoader(THREE.TextureLoader, mineralRegionTexture);
+  const mineralRegionNormal = useLoader(THREE.TextureLoader, mineralRegionNormalMap);
+  const mineralRegionRoughness = useLoader(THREE.TextureLoader, mineralRegionRoughnessMap);
+
   useFrame(() => {
     if (meshRef.current) {
       meshRef.current.quaternion.setFromUnitVectors(
@@ -94,14 +110,39 @@ const Feature = ({ feature, setHovered }) => {
   let geometry, material;
 
   if (feature.type === "Cryo-volcano") {
-    geometry = <coneGeometry args={[0.2, 0.5, 32]} />;
-    material = <meshStandardMaterial color={0xff5733} />;
-  } else if (feature.type === "Hypothermal-Vent") {
-    geometry = <sphereGeometry args={[0.1, 16, 16]} />;
-    material = <meshStandardMaterial color={0x00ff00} />;
+    geometry = <coneGeometry args={[0.3, 0.6, 32]} />;
+    material = (
+      <meshStandardMaterial
+        map={cryoVolcanoTextureMap}
+        normalMap={cryoVolcanoNormal}
+        normalScale={[0.5, 0.5]}
+        color={0xadd8e6} // Light blue to represent icy material
+      />
+    );
+  } else if (feature.type === "Hydrothermal-vent") {
+    geometry = <cylinderGeometry args={[0.1, 0.2, 0.3, 32]} />;
+    material = (
+      <meshStandardMaterial
+        map={hydrothermalVentTextureMap}
+        normalMap={hydrothermalVentNormal}
+        normalScale={[1, 1]}
+        emissive={0xff4500} // Orange-red glow to represent heat
+        emissiveIntensity={0.5}
+      />
+    );
   } else if (feature.type === "MineralRegion") {
     geometry = <sphereGeometry args={[0.2, 32, 32]} />;
-    material = <meshStandardMaterial color={0xdddd44} />;
+    material = (
+      <meshStandardMaterial
+        map={mineralRegionTextureMap}
+        normalMap={mineralRegionNormal}
+        roughnessMap={mineralRegionRoughness}
+        normalScale={[0.5, 0.5]}
+        roughness={0.8}
+        metalness={0.3}
+        color={0xffd700} // Gold color to represent mineral deposits
+      />
+    );
   }
 
   return (
@@ -116,7 +157,7 @@ const Feature = ({ feature, setHovered }) => {
       </mesh>
       {isHovered && (
         <Html distanceFactor={15}>
-          <div className="bg-white bg-opacity-20 font-lato text-black p-2 rounded-lg backdrop-blur-sm">
+          <div className="bg-black bg-opacity-50 text-white p-2 rounded-lg backdrop-blur-sm">
             {`${feature.type} at ${feature.lat.toFixed(2)}°, ${feature.lon.toFixed(2)}°`}
           </div>
         </Html>
@@ -167,7 +208,6 @@ const Titan = () => {
   );
 };
 
-// Helper functions
 function latLonToVector3(lat, lon, radius = 5) {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lon + 180) * (Math.PI / 180);
@@ -181,11 +221,11 @@ function latLonToVector3(lat, lon, radius = 5) {
 
 function generateGeologicalFeatures(count) {
   const features = [];
+  const types = ["Cryo-volcano", "Hydrothermal-vent", "MineralRegion"];
 
   for (let i = 0; i < count; i++) {
     const lat = Math.random() * 180 - 90;
     const lon = Math.random() * 360 - 180;
-    const types = ["Cryo-volcano", "Hypothermal-Vent", "MineralRegion"];
     const type = types[Math.floor(Math.random() * types.length)];
 
     features.push({ lat, lon, type });

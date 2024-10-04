@@ -17,10 +17,11 @@ const Page4 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [animateRobot, setAnimateRobot] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
-  const [photoCardShow,setPhotoCardShow] = useState(false);
+  const [photoCardShow, setPhotoCardShow] = useState(false);
   const [robotPose, setRobotPose] = useState("pose 1 - presentation");
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
+  const [showNavButton, setShowNavButton] = useState(false);
   const dialogues = [
     {
       text: "Beneath Titan's icy crust, there might be an entire ocean waiting to be discovered.",
@@ -79,9 +80,7 @@ const Page4 = () => {
       photoCardPlace: "",
     },
   ];
-  
 
-  
   //  The speech and Dialougue handling commands
   useEffect(() => {
     if (selectedVoice) {
@@ -94,20 +93,23 @@ const Page4 = () => {
       setShowContinueText(false);
       setDialogueIndex((prevIndex) => {
         const newIndex = (prevIndex + 1) % dialogues.length;
-  
+
         // Update robot pose
         setRobotPose(dialogues[newIndex].pose);
-  
+
         // Speak the new dialogue
         speak(dialogues[newIndex].text);
-  
+
         // Check if PhotoCard should be shown
         if (dialogues[newIndex].showPhotoCard) {
           setPhotoCardShow(true);
         } else {
           setPhotoCardShow(false);
         }
-  
+        if (newIndex == dialogues.length - 1) {
+          setShowNavButton(true);
+        }
+
         return newIndex;
       });
     }, 500);
@@ -134,13 +136,20 @@ const Page4 = () => {
           <CameraControl />
         </Suspense>
       </Canvas>
-      
+      {/* Heading */}
+      <div className="absolute top-5 w-full flex justify-center">
+        <h1 className="text-white text-5xl font-vt font-bold tracking-wide">
+          Sub-Surface Ocean
+        </h1>
+      </div>
       {/* Dialogue Box */}
       <div
-        className="absolute lg:bottom-36 bottom-32 flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer"
+        className={`absolute lg:bottom-36 ${
+          showNavButton ? "bottom-32" : "bottom-4 lg:bottom-16"
+        } flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer`}
         onClick={handleDialogueClick}
       >
-        <div className="glass-dialogue-box h-full flex items-center flex-col">
+        <div className="glass-dialogue-box h-full font-tr flex items-center flex-col">
           <Typewriter
             key={dialogueIndex}
             onInit={(typewriter) => {
@@ -155,7 +164,7 @@ const Page4 = () => {
             options={{
               autoStart: true,
               delay: 50,
-              cursor: "",
+              cursor: "..",
               deleteSpeed: Infinity,
             }}
           />
@@ -169,16 +178,18 @@ const Page4 = () => {
         </div>
       </div>
       <PhotoCard
-            path={dialogues[dialogueIndex].photoPath}
-            isShown={photoCardShow}
-            placement={dialogues[dialogueIndex].photoCardPlace}
-          />
-      <div className="fixed w-full bottom-0 flex justify-between px-10">
-        <RippleButton navigateTo="/page3">Previous</RippleButton>
-        <RippleButton navigateTo="/page5" onClick={handleExit}>
-          Next
-        </RippleButton>
-      </div>
+        path={dialogues[dialogueIndex].photoPath}
+        isShown={photoCardShow}
+        placement={dialogues[dialogueIndex].photoCardPlace}
+      />
+      {showNavButton && (
+        <div className="fixed w-full bottom-0 flex justify-between px-10">
+          <RippleButton navigateTo="/page3">Previous</RippleButton>
+          <RippleButton navigateTo="/page5" onClick={handleExit}>
+            Next
+          </RippleButton>
+        </div>
+      )}
     </div>
   );
 };

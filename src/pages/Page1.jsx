@@ -9,7 +9,7 @@ import CameraControl from "./Shared/CameraControl";
 import Light from "./Shared/Light";
 import useSpeechSynthesis from "./Shared/useSpeechSynthesis";
 import Background from "./Shared/Background";
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
 
 const Page1 = () => {
   const [dialogueIndex, setDialogueIndex] = useState(0);
@@ -18,7 +18,8 @@ const Page1 = () => {
   const [robotPose, setRobotPose] = useState("pose 3 - hello");
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
-  console.log(showContinueText)
+  const [showNavButton, setShowNavButton] = useState(false);
+  console.log(showContinueText);
   const dialogues = [
     "Greetings, Earthling! I am Chiko, your guide to the wonders of Titan.",
     "I was designed to explore this icy moon and uncover the secrets of life beyond Earth.",
@@ -27,7 +28,7 @@ const Page1 = () => {
     "On Titan, life doesn’t rely on the sun. Instead, it harnesses energy from chemical reactions deep below the icy surface.",
     "Together, we'll discover the unique ecosystems of Titan, where methane rivers flow and icy mountains touch the sky.",
     "Get ready for an adventure like no other, as we explore Titan’s mysteries and learn how life adapts in a world so different from our own.",
-    "Click on the Next button to continue the journey."
+    "Click on the Next button to continue the journey.",
   ];
 
   const poses = [
@@ -58,6 +59,10 @@ const Page1 = () => {
           speak(dialogues[newIndex]);
           setAnimateRobot(true);
         }
+        if (newIndex == dialogues.length - 1) {
+          setShowNavButton(true);
+        }
+
         return newIndex;
       });
     }, 500);
@@ -86,48 +91,56 @@ const Page1 = () => {
           <CameraControl />
         </Suspense>
       </Canvas>
+      {/* Heading */}
+      <div className="absolute top-5 w-full flex justify-center">
+        <h1 className="text-white text-5xl font-vt font-normal tracking-wide">
+          Welcome Learner!
+        </h1>
+      </div>
       {/* Dialogue Box */}
       <div
-        className="absolute lg:bottom-36 bottom-32 flex flex-col justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer"
+        className={`absolute lg:bottom-36 ${
+          showNavButton ? "bottom-32" : "bottom-4 lg:bottom-16"
+        } flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer`}
         onClick={handleDialogueClick}
       >
-        <div className="glass-dialogue-box h-full flex flex-col items-center">
+        <div className="glass-dialogue-box h-full font-tr flex flex-col items-center">
           <h1 className="w-auto text-center">
-          <Typewriter
-             key={dialogueIndex} 
-            onInit={(typewriter) => {
-              typewriter
-                .typeString(dialogues[dialogueIndex])
-                .start()
-                .callFunction(() => {
-                  setShowContinueText(true);
-                })
-                
-            }}   
-            options={{
-              autoStart: true,
-              delay: 50,
-              cursor: '',
-              deleteSpeed: Infinity,
-            }}       
-          />
+            <Typewriter
+              key={dialogueIndex}
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString(dialogues[dialogueIndex])
+                  .start()
+                  .callFunction(() => {
+                    setShowContinueText(true);
+                  });
+              }}
+              options={{
+                autoStart: true,
+                delay: 50,
+                cursor: "..",
+                deleteSpeed: Infinity,
+              }}
+            />
           </h1>
           {/* Blinking Continue Text */}
-        {showContinueText && (
-          <h2 className="mt-4 text-[16px] text-center font-lato text-white animate-pulse">
-            Click to continue...
-          </h2>
-        )}
+          {showContinueText && (
+            <h2 className="mt-4 text-[16px] text-center font-lato text-white animate-pulse">
+              Click to continue...
+            </h2>
+          )}
         </div>
-        
       </div>
       {/* Buttons */}
-      <div className="fixed w-full bottom-0 flex justify-between px-10">
-        <RippleButton navigateTo="/">Previous</RippleButton>
-        <RippleButton navigateTo="/page2" onClick={handleExit}>
-          Next
-        </RippleButton>
-      </div>
+      {showNavButton && (
+        <div className="fixed w-full bottom-0 flex justify-between px-10">
+          <RippleButton navigateTo="/">Previous</RippleButton>
+          <RippleButton navigateTo="/page2" onClick={handleExit}>
+            Next
+          </RippleButton>
+        </div>
+      )}
     </div>
   );
 };

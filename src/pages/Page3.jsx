@@ -21,6 +21,7 @@ const Page2 = () => {
   const [robotPose, setRobotPose] = useState("pose 1 - presentation");
   const [showContinueText, setShowContinueText] = useState(false);
   const { speak, selectedVoice } = useSpeechSynthesis();
+  const [showNavButton, setShowNavButton] = useState(false);
   const dialogues = [
     {
       text: "Now, let's explore the surface of Titan.",
@@ -78,9 +79,8 @@ const Page2 = () => {
       photoPath: "./assets/img/page3/methane-lakes.jpeg",
       photoCardPlace: "right",
     },
-
   ];
-  
+
   //  The speech and Dialougue handling commands
   useEffect(() => {
     if (selectedVoice) {
@@ -105,6 +105,10 @@ const Page2 = () => {
           setPhotoCardShow(true);
         } else {
           setPhotoCardShow(false);
+        }
+
+        if (newIndex == dialogues.length - 1) {
+          setShowNavButton(true);
         }
 
         return newIndex;
@@ -134,12 +138,18 @@ const Page2 = () => {
           <CameraControl />
         </Suspense>
       </Canvas>
+      {/* Heading */}
+      <div className="absolute top-5 w-full flex justify-center">
+        <h1 className="text-white text-5xl font-vt font-bold tracking-wide">
+          Titan&#39;s Surface
+        </h1>
+      </div>
       {/* Dialogue Box */}
       <div
-        className="absolute lg:bottom-36 bottom-32 flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer"
+        className={`absolute lg:bottom-36 ${showNavButton?'bottom-32':"bottom-4 lg:bottom-16"} flex justify-center items-center w-full lg:h-40 rounded-lg text-white font-lato text-3xl cursor-pointer`}
         onClick={handleDialogueClick}
       >
-        <div className="glass-dialogue-box h-full flex items-center flex-col">
+        <div className="glass-dialogue-box h-full font-tr flex items-center flex-col">
           <Typewriter
             key={dialogueIndex}
             onInit={(typewriter) => {
@@ -153,7 +163,7 @@ const Page2 = () => {
             options={{
               autoStart: true,
               delay: 50,
-              cursor: "",
+              cursor: "..",
               deleteSpeed: Infinity,
             }}
           />
@@ -166,16 +176,18 @@ const Page2 = () => {
         </div>
       </div>
       <PhotoCard
-            path={dialogues[dialogueIndex].photoPath}
-            isShown={photoCardShow}
-            placement={dialogues[dialogueIndex].photoCardPlace}
-          />
-      <div className="fixed w-full bottom-0 flex justify-between px-10">
-        <RippleButton navigateTo="/page2">Previous</RippleButton>
-        <RippleButton navigateTo="/page4" onClick={handleExit}>
-          Next
-        </RippleButton>
-      </div>
+        path={dialogues[dialogueIndex].photoPath}
+        isShown={photoCardShow}
+        placement={dialogues[dialogueIndex].photoCardPlace}
+      />
+      {showNavButton && (
+        <div className="fixed w-full bottom-0 flex justify-between px-10">
+          <RippleButton navigateTo="/page2">Previous</RippleButton>
+          <RippleButton navigateTo="/page4" onClick={handleExit}>
+            Next
+          </RippleButton>
+        </div>
+      )}
     </div>
   );
 };

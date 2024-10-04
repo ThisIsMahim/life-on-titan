@@ -10,6 +10,8 @@ import Page5 from "../pages/Page5";
 import QuizPage from "../pages/Quiz-Page/QuizPage";
 import TestPage from "../pages/TestPage";
 import Page6 from "../pages/Page6";
+import Page7 from "../pages/Page7";
+import CreditPage from "../pages/Credit-Page/CreditPage";
 
 const router = createHashRouter([
   {
@@ -47,11 +49,19 @@ const router = createHashRouter([
       },
       {
         path: "testPage",
-        element: <TestPage/>,
+        element: <TestPage />,
       },
       {
         path: "page6",
-        element: <Page6/>,
+        element: <Page6 />,
+      },
+      {
+        path: "page7",
+        element: <Page7 />,
+      },
+      {
+        path: "creditPage",
+        element: <CreditPage />,
       },
     ],
   },

@@ -86,7 +86,7 @@ const Page6 = () => {
           </h1>
           <div className="flex items-center lg:flex-row-reverse flex-col-reverse h-full w-full">
             <video
-              className="lg:w-[80%] z-10 h-full object-contain lg:hover:scale-150 transition-all duration-500 rounded-lg p-5 backdrop-blur-md bg-slate-600 bg-opacity-10"
+              className="lg:w-[80%] z-10 h-full object-contain lg:hover:scale-150 transition-all duration-500 rounded-lg p-5 backdrop-blur-md bg-transparent bg-opacity-10"
               src="./assets/videos/Chemosynthesis-explained.mp4"
               autoPlay
               loop
@@ -110,7 +110,7 @@ const Page6 = () => {
             className="flex justify-center items-center w-full rounded-lg text-white font-lato text-2xl cursor-pointer backdrop-blur-sm bg-white/10 hover:border transition-all border-white/20 p-4 mt-10 z-10"
             onClick={handleDialogueClick}
           >
-            <div className="flex items-center flex-col">
+            <div className="flex items-center font-tr flex-col">
               <Typewriter
                 key={dialogueIndex}
                 onInit={(typewriter) => {
@@ -122,7 +122,7 @@ const Page6 = () => {
                 options={{
                   autoStart: true,
                   delay: 50,
-                  cursor: "",
+                  cursor: "..",
                   deleteSpeed: Infinity,
                 }}
               />
@@ -139,7 +139,7 @@ const Page6 = () => {
       {/* Navigation buttons */}
       <div className="fixed w-full bottom-0 flex justify-between px-10 z-20">
         <RippleButton navigateTo="/page5">Previous</RippleButton>
-        <RippleButton navigateTo="/quizPage">Next</RippleButton>
+        <RippleButton navigateTo="/page7">Next</RippleButton>
       </div>
     </div>
   );
