@@ -1,24 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=League+Gothic&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @font-face {
-  font-family: 'Type-machine';
-  src: url('./assets/fonts/Type-Machine.ttf');
+  font-family: "Type-machine";
+  src: url("./assets/fonts/Type-Machine.ttf");
 }
-.font-tr{
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.font-tr {
   font-family: "Type-machine";
 }
 .font-jersey {
-    font-family: "Jersey 10", sans-serif;
-  }
-.font-lato{
-  font-family:  "Lato", sans-serif;
+  font-family: "Jersey 10", sans-serif;
 }
-.font-vt{
+.font-lato {
+  font-family: "Lato", sans-serif;
+}
+.font-vt {
   font-family: "VT323", monospace;
 }
 .font-poppins {
@@ -26,12 +32,17 @@
   font-weight: 200;
   font-style: normal;
 }
-.font-league{
+.font-league {
   font-family: "League Gothic", system-ui;
 }
 
 .glass-dialogue-box {
-  background: rgba(255, 255, 255, 0.1); /* Light transparent white for the glass effect */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Light transparent white for the glass effect */
   backdrop-filter: blur(5px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   border-radius: 20px;
@@ -44,7 +55,7 @@
   font-weight: 700; /* Bold text */
   overflow: hidden; /* Hide overflow for rounded corners */
   box-sizing: border-box;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 /* Additional hover effect to give more depth */
@@ -54,52 +65,60 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* Shining border effect */
+.shining-border {
+  border: 5px solid transparent;
+  border-image: linear-gradient(45deg, #580a0a, #2571a8, #fff);
+  border-image-slice: 1;
+  animation: shine 2s linear infinite;
+}
 
-  /* Shining border effect */
-  .shining-border {
-    border: 5px solid transparent;
-    border-image: linear-gradient(45deg, #580a0a, #2571a8, #fff);
-    border-image-slice: 1;
-    animation: shine 2s linear infinite;
+@keyframes shine {
+  0% {
+    border-image: linear-gradient(45deg, #fff, #000, #fff);
   }
-  
-  @keyframes shine {
-    0% {
-      border-image: linear-gradient(45deg, #fff, #000, #fff);
-    }
-    100% {
-      border-image: linear-gradient(45deg, #000, #fff, #000);
-    }
+  100% {
+    border-image: linear-gradient(45deg, #000, #fff, #000);
   }
+}
 
-  /* Floating animation */
-  .floating-card {
-    animation: float 3s ease-in-out infinite;
-  }
-  
-  /* Float up and down */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
+/* Floating animation */
+.floating-card {
+  animation: float 3s ease-in-out infinite;
+}
 
-  @keyframes shine-title {
-    0% {
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 1), 0 0 80px rgba(255, 255, 255, 1), 0 0 120px rgba(255, 255, 255, 1), 0 0 160px rgba(255, 255, 255, 1);
-    }
-    50% {
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.1), 0 0 10px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.3), 0 0 120px rgba(255, 255, 255, 0.3), 0 0 160px rgba(255, 255, 255, 0.3);
-    }
-    100% {
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 1), 0 0 80px rgba(255, 255, 255, 1), 0 0 120px rgba(255, 255, 255, 1), 0 0 160px rgba(255, 255, 255, 1);
-    }
+/* Float up and down */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  
-  .shining-title {
-    animation: shine-title 3.5s infinite ease-in-out;
+  50% {
+    transform: translateY(-10px);
   }
-  
+}
+
+@keyframes shine-title {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5),
+      0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5),
+      0 0 40px rgba(255, 255, 255, 1), 0 0 80px rgba(255, 255, 255, 1),
+      0 0 120px rgba(255, 255, 255, 1), 0 0 160px rgba(255, 255, 255, 1);
+  }
+  50% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1),
+      0 0 10px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1),
+      0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.3),
+      0 0 120px rgba(255, 255, 255, 0.3), 0 0 160px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5),
+      0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5),
+      0 0 40px rgba(255, 255, 255, 1), 0 0 80px rgba(255, 255, 255, 1),
+      0 0 120px rgba(255, 255, 255, 1), 0 0 160px rgba(255, 255, 255, 1);
+  }
+}
+
+.shining-title {
+  animation: shine-title 3.5s infinite ease-in-out;
+}

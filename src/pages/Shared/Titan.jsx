@@ -14,12 +14,11 @@ import "../../style/canvas.css";
 import bumpMapTexture from '/assets/img/titan-black-and-white.jpg';
 import planetTexture from '/assets/img/titan.jpg';
 import cryoVolcanoTexture from '/assets/img/cryo-volcano.jpg';
-import cryoVolcanoNormalMap from '/assets/img/cryo-volcano-normal.jpg';
-import hydrothermalVentTexture from '/assets/img/hydrothermal-vent.jpg';
-import hydrothermalVentNormalMap from '/assets/img/hydrothermal-vent-normal.jpg';
-import mineralRegionTexture from '/assets/img/mineral-region.jpg';
-import mineralRegionNormalMap from '/assets/img/mineral-region-normal.jpg';
-import mineralRegionRoughnessMap from '/assets/img/mineral-region-roughness.jpg';
+import cryoVolcanoNormalMap from '/assets/img/cryo-volcano-normal.png';
+import hydrothermalVentTexture from '/assets/img/hydrothermal-vent.png';
+import hydrothermalVentNormalMap from '/assets/img/hydrothermal-vent-normal.png';
+import mineralRegionTexture from '/assets/img/mineral-region.png';
+import mineralRegionNormalMap from '/assets/img/mineral-region-normal.png';
 
 extend(THREE);
 
@@ -84,7 +83,6 @@ const Feature = ({ feature, setHovered }) => {
   const hydrothermalVentNormal = useLoader(THREE.TextureLoader, hydrothermalVentNormalMap);
   const mineralRegionTextureMap = useLoader(THREE.TextureLoader, mineralRegionTexture);
   const mineralRegionNormal = useLoader(THREE.TextureLoader, mineralRegionNormalMap);
-  const mineralRegionRoughness = useLoader(THREE.TextureLoader, mineralRegionRoughnessMap);
 
   useFrame(() => {
     if (meshRef.current) {
@@ -116,7 +114,6 @@ const Feature = ({ feature, setHovered }) => {
         map={cryoVolcanoTextureMap}
         normalMap={cryoVolcanoNormal}
         normalScale={[0.5, 0.5]}
-        color={0xadd8e6} // Light blue to represent icy material
       />
     );
   } else if (feature.type === "Hydrothermal-vent") {
@@ -127,7 +124,7 @@ const Feature = ({ feature, setHovered }) => {
         normalMap={hydrothermalVentNormal}
         normalScale={[1, 1]}
         emissive={0xff4500} // Orange-red glow to represent heat
-        emissiveIntensity={0.5}
+        emissiveIntensity={0.3}
       />
     );
   } else if (feature.type === "MineralRegion") {
@@ -136,11 +133,9 @@ const Feature = ({ feature, setHovered }) => {
       <meshStandardMaterial
         map={mineralRegionTextureMap}
         normalMap={mineralRegionNormal}
-        roughnessMap={mineralRegionRoughness}
         normalScale={[0.5, 0.5]}
         roughness={0.8}
         metalness={0.3}
-        color={0xffd700} // Gold color to represent mineral deposits
       />
     );
   }
