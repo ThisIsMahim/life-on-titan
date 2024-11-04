@@ -1,5 +1,5 @@
 
-# Life on Titan 🌌
+# Life on Titan 🌌 (A submission to Nasa Space Apps Challenge 2024)
 
 An educational, interactive web app exploring the potential for life on Titan, Saturn's largest moon. This project introduces users to unique concepts like chemosynthesis, subsurface oceans, and Titan’s extreme environment through engaging visuals, 3D models, and the guidance of our AI character, **Chiko**.
 
